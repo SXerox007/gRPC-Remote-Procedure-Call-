@@ -6,7 +6,7 @@ import (
 	"net"
 	"os"
 
-	"gRPC-/basic/unary-API/proto"
+	"gRPC-Remote-Procedure-Call-/basic/unary-API/proto"
 
 	"google.golang.org/grpc"
 )

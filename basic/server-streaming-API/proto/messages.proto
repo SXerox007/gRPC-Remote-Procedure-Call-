@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+message DataPacketContainer{
+    string message =1;
+    string description=2;
+    string code = 3;
+}
+
+message DataPacketRequest {
+    bool req_data_packet = 1;
+}
+
+message DataPacketResponse{
+    DataPacketContainer res_data_packet = 1; 
+}
+
+service DataPacketMessageContainerService{
+
+    //here using stream keword which mean i just do one request only it just give me the multiple stream response (here is the  1st power of gRPC (Micorservices))
+    rpc  DataPacketService(DataPacketRequest) returns (stream DataPacketResponse){}
+}

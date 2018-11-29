@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"gRPC-/basic/unary-API/proto"
+	"gRPC-Remote-Procedure-Call-/basic/unary-API/proto"
 	"log"
 
 	"google.golang.org/grpc"

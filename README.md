@@ -1,4 +1,4 @@
 # gRPC-
 
-gRPC into to Advance
+gRPC basic to Advance
 
