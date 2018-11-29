@@ -36,6 +36,11 @@ func ClientSetup() {
 		log.Fatal("Some Error Occured: ", err)
 	}
 
+	streamData(data)
+
+}
+
+func streamData(data messages.DataPacketMessageContainerService_DataPacketServiceClient) {
 	for {
 		dataStream, err := data.Recv()
 		log.Println("Response Send by Server:")
