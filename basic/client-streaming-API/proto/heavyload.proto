@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message HeavyLoadData{
+    string success = 1;
+    int32 loadBinary = 2;
+    int32 code = 3;
+}
+
+message HeavyLoadInsert{
+    int32 add = 1;
+}
+
+message HeavyLoadDataRequest{
+    HeavyLoadInsert req_load = 1;
+}
+
+message HeavyLoadDataResponse{
+    HeavyLoadData get_load = 1;
+}
+
+
+service HeavyLoadDataContainerService {
+    // add stream keyword when use in client side streaming
+    rpc HeavyLoadData(stream HeavyLoadDataRequest) returns (HeavyLoadDataResponse);
+}
+

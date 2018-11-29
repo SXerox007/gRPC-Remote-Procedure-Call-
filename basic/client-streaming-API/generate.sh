@@ -1,6 +1,6 @@
 // #generate gRPC-Code
 //To generate the grpc code 
-protoc proto/messages.proto --go_out=plugins=grpc:.
+protoc proto/heavyload.proto --go_out=plugins=grpc:.
 
 // #server-run
 go run basic/client-streaming-API/server/server-app.go
@@ -26,3 +26,5 @@ https://stackoverflow.com/questions/834748/gcc-makefile-error-no-rule-to-make-ta
 
 
 // #Refrence:- 
+https://godoc.org/google.golang.org/grpc
+https://www.golang-book.com/books/intro/13
