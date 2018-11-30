@@ -33,6 +33,8 @@ func (*Server) ChatService(stream chat.ChatServiceContainer_ChatServiceServer) e
 			log.Fatalf("Some Error occured when send data to client : %v", err)
 			return err
 		}
+
+		//time.Sleep(2000 * time.Millisecond)
 	}
 }
 

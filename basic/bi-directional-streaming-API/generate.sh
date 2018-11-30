@@ -3,7 +3,7 @@
 protoc proto/chat.proto --go_out=plugins=grpc:.
 
 // #server-run
-go run basic/bi-directional-client-streaming-API/server/server-app.go
+go run basic/bi-directional-streaming-API/server/server-app.go
 or 
 make server
 

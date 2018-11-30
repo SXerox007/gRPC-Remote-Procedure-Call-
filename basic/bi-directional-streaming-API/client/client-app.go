@@ -1,7 +1,12 @@
 package main
 
 import (
+	"context"
+	"io"
 	"log"
+	"time"
+
+	"gRPC-Remote-Procedure-Call-/basic/bi-directional-streaming-API/proto"
 
 	"google.golang.org/grpc"
 )
@@ -22,14 +27,64 @@ func ClientSetup() {
 	}
 	defer client.Close()
 
-	// msg := heavyload.NewHeavyLoadDataContainerServiceClient(client)
+	msg := chat.NewChatServiceContainerClient(client)
 
-	// stream, err := msg.HeavyLoadData(context.Background())
+	stream, err := msg.ChatService(context.Background())
 
-	// if err != nil {
-	// 	log.Fatal("Some Error Occured: ", err)
-	// }
+	if err != nil {
+		log.Fatal("Some Error Occured: ", err)
+		return
+	}
 
-	//ClientStream(stream)
+	ClientStream(stream)
+}
 
+func ClientStream(stream chat.ChatServiceContainer_ChatServiceClient) {
+	req := []*chat.ChatServiceRequest{
+		&chat.ChatServiceRequest{
+			Message: "Hi there",
+		},
+		&chat.ChatServiceRequest{
+			Message: "yolo",
+		},
+		&chat.ChatServiceRequest{
+			Message: "Hahaha",
+		},
+		&chat.ChatServiceRequest{
+			Message: "Nope",
+		},
+		&chat.ChatServiceRequest{
+			Message: "Ammmmmm",
+		},
+	}
+
+	waitc := make(chan struct{})
+
+	go func() {
+		//  send multiple messages
+		for _, req := range req {
+			stream.Send(req)
+			time.Sleep(2000 * time.Millisecond)
+		}
+		stream.CloseSend()
+	}()
+
+	//Receive message
+	go func() {
+		for {
+			res, err := stream.Recv()
+			if err == io.EOF {
+				break
+			}
+			if err != nil {
+				log.Fatalf("Error int receiving: %v", err)
+				break
+			}
+			log.Println("Data Success: ", res.GetMessage())
+		}
+		close(waitc)
+	}()
+
+	//wait until everything is complete
+	<-waitc
 }
