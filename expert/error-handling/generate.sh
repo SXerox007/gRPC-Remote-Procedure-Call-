@@ -1,14 +1,14 @@
 // #generate gRPC-Code
 //To generate the grpc code 
-protoc proto/chat.proto --go_out=plugins=grpc:.
+protoc expert/error-handling/proto/error.proto --go_out=plugins=grpc:.
 
 // #server-run
-go run basic/bi-directional-streaming-API/server/server-app.go
+go run basic/unary-API/server/server-app.go
 or 
 make server
 
 // #client-run
-go run basic/bi-directional-streaming-API/client/client-app.go
+go run basic/unary-API/client/client-app.go
 or 
 make client
 
@@ -26,5 +26,9 @@ https://stackoverflow.com/questions/834748/gcc-makefile-error-no-rule-to-make-ta
 
 
 // #Refrence:- 
-https://godoc.org/google.golang.org/grpc
-https://www.golang-book.com/books/intro/13
+https://flaviocopes.com/golang-environment-variables/
+
+
+// #Error handling
+https://grpc.io/docs/guides/error.html
+http://avi.im/grpc-errors/
