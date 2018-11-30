@@ -2,6 +2,7 @@ package main
 
 import (
 	"gRPC-Remote-Procedure-Call-/basic/bi-directional-streaming-API/proto"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -10,6 +11,29 @@ import (
 )
 
 type Server struct {
+}
+
+func (*Server) ChatService(stream chat.ChatServiceContainer_ChatServiceServer) error {
+	for {
+		//Recive stream message
+		req, err := stream.Recv()
+		if err == io.EOF {
+			return err
+		}
+		if err != nil {
+			log.Fatalf("Some Error occured: %v", err)
+			return err
+		}
+		log.Println("Message Client:", req.GetMessage())
+
+		err = stream.Send(&chat.ChatServiceResponse{
+			Message: "Hi there: " + req.GetMessage(),
+		})
+		if err != nil {
+			log.Fatalf("Some Error occured when send data to client : %v", err)
+			return err
+		}
+	}
 }
 
 func GetEnv() string {
