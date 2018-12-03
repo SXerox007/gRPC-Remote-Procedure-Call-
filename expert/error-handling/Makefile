@@ -1,7 +1,7 @@
 .PHONY: all server client clean
 
 server:
-	go run server/app.go
+	go run server/server-app.go
 
 client:
-	go run client/app.go
+	go run client/client-app.go
