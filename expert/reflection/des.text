@@ -1,0 +1,24 @@
+//Reflection sample code form the link below
+https://github.com/grpc/grpc-go/tree/master/reflection
+
+import "google.golang.org/grpc/reflection"
+
+s := grpc.NewServer()
+pb.RegisterYourOwnServer(s, &server{})
+
+// Register reflection service on gRPC server.
+reflection.Register(s)
+
+s.Serve(lis)
+
+
+///Install the evans the CLI (command line interface)
+https://github.com/ktr0731/evans
+or 
+go get github.com/ktr0731/evans 
+or
+brew tap ktr0731/evans
+brew install evans
+
+//# to check evans is install successfully
+//evan type in CLI
