@@ -1,14 +1,14 @@
 // #generate gRPC-Code
 //To generate the grpc code 
-protoc expert/error-handling/proto/error.proto --go_out=plugins=grpc:.
+protoc expert/error-handling/proto/search.proto --go_out=plugins=grpc:.
 
 // #server-run
-go run expert/error-handling/server/server-app.go
+go run expert/ssl-security/server/app.go
 or 
 make server
 
 // #client-run
-go run expert/error-handling/client/client-app.go
+go run expert/ssl-security/client/app.go
 or 
 make client
 
@@ -70,3 +70,7 @@ rm -rf .git
 rm -rf .git*
 ls -lah
 find . -name ".git"
+
+
+//#ssl-sercurity 
+https://grpc.io/docs/guides/auth.html
