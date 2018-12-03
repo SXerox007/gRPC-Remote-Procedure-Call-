@@ -62,3 +62,11 @@ http://avi.im/grpc-errors/
 // #gRPCvsREST || HTTP1.1 vs HTTP2
 https://husobee.github.io/golang/rest/grpc/2016/05/28/golang-rest-v-grpc.html
 https://imagekit.io/demo/http2-vs-http1
+
+//#.git file remove from sub directory if (Not for others)
+//#TODO: Remove
+find . -name ".git"
+rm -rf .git
+rm -rf .git*
+ls -lah
+find . -name ".git"
