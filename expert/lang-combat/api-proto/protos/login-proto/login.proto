@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package loginproto;
+
+message LoginRequestData {
+    string EmailOrPhone = 1;
+    string Password = 2;
+}
+
+message LoginResponseData {
+    string Success = 1;
+    int32 Status = 2;
+}
+
+message LoginRequest {
+    LoginRequestData loginRequestData = 1;
+}
+
+message LoginResponse {
+    LoginResponseData loginResponseData = 1;
+}
