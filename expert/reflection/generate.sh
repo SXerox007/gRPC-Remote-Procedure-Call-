@@ -84,3 +84,15 @@ https://github.com/grpc/grpc-go/tree/master/reflection
 //#Evans the CLI
 brew tap ktr0731/evans
 brew install evans
+
+//#Evans run and some commnads
+evans 
+evans -p 8080 -r
+show package
+show service
+show message
+desc 
+package defult
+service service_name
+call name_of_rpc
+exit

@@ -1,9 +1,17 @@
 package ssl_f
 
-func GetServerCertFile() string {
+import (
+	"google.golang.org/grpc/credentials"
+)
+
+func getServerCertFile() string {
 	return "expert/lang-combat/ssl/server.crt"
 }
 
-func GetServerKeyFile() string {
+func getServerKeyFile() string {
 	return "expert/lang-combat/ssl/server.pem"
+}
+
+func GetCreds() (credentials.TransportCredentials, error) {
+	return credentials.NewServerTLSFromFile(getServerCertFile(), getServerKeyFile())
 }

@@ -2,8 +2,9 @@ syntax = "proto3";
 
 import "expert/lang-combat/api-proto/protos/login-proto/login.proto";
 
+option go_package = "myapplication";
 package loginproto;
 
 service MyApplicationServices{
-    rpc Login (loginproto.LoginRequest) returns (loginproto.LoginResponse);
+    rpc Login (LoginRequest) returns (LoginResponse);
 }
