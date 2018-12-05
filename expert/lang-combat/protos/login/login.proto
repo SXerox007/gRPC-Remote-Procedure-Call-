@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package login;
-
 message LoginRequestData {
     string EmailOrPhone = 1;
     string Password = 2;
@@ -18,4 +16,8 @@ message LoginRequest {
 
 message LoginResponse {
     LoginResponseData loginResponseData = 1;
+}
+
+service LoginService{
+    rpc Login(LoginRequest) returns (LoginResponse){};
 }
