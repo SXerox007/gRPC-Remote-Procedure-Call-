@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 
+	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/collection/informatica"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/logs"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/mongodb"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/proto"
@@ -15,6 +18,20 @@ import (
 )
 
 type Server struct {
+}
+
+func (*Server) CreateInformatica(ctx context.Context, req *informaticapb.InformaticaRequest) (*informaticapb.InformaticaResponse, error) {
+	//insert data into the mongodb
+	err := informatica.InsertDataInInformatica(req.GetInformatica())
+	if err == nil {
+		return &informaticapb.InformaticaResponse{
+			CommonResponse: &informaticapb.CommonResponse{
+				Status:  http.StatusOK,
+				Message: "Success",
+			},
+		}, nil
+	}
+	return nil, err
 }
 
 func GetEnv() string {

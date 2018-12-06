@@ -85,8 +85,136 @@ func (m *Informatica) GetHostName() string {
 	return ""
 }
 
+type CommonResponse struct {
+	Status               int32    `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CommonResponse) Reset()         { *m = CommonResponse{} }
+func (m *CommonResponse) String() string { return proto.CompactTextString(m) }
+func (*CommonResponse) ProtoMessage()    {}
+func (*CommonResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_be3c05494cc022a7, []int{1}
+}
+
+func (m *CommonResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CommonResponse.Unmarshal(m, b)
+}
+func (m *CommonResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CommonResponse.Marshal(b, m, deterministic)
+}
+func (m *CommonResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CommonResponse.Merge(m, src)
+}
+func (m *CommonResponse) XXX_Size() int {
+	return xxx_messageInfo_CommonResponse.Size(m)
+}
+func (m *CommonResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CommonResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CommonResponse proto.InternalMessageInfo
+
+func (m *CommonResponse) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+func (m *CommonResponse) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
+type InformaticaRequest struct {
+	Informatica          *Informatica `protobuf:"bytes,1,opt,name=informatica,proto3" json:"informatica,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *InformaticaRequest) Reset()         { *m = InformaticaRequest{} }
+func (m *InformaticaRequest) String() string { return proto.CompactTextString(m) }
+func (*InformaticaRequest) ProtoMessage()    {}
+func (*InformaticaRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_be3c05494cc022a7, []int{2}
+}
+
+func (m *InformaticaRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InformaticaRequest.Unmarshal(m, b)
+}
+func (m *InformaticaRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InformaticaRequest.Marshal(b, m, deterministic)
+}
+func (m *InformaticaRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InformaticaRequest.Merge(m, src)
+}
+func (m *InformaticaRequest) XXX_Size() int {
+	return xxx_messageInfo_InformaticaRequest.Size(m)
+}
+func (m *InformaticaRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_InformaticaRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InformaticaRequest proto.InternalMessageInfo
+
+func (m *InformaticaRequest) GetInformatica() *Informatica {
+	if m != nil {
+		return m.Informatica
+	}
+	return nil
+}
+
+type InformaticaResponse struct {
+	CommonResponse       *CommonResponse `protobuf:"bytes,1,opt,name=common_response,json=commonResponse,proto3" json:"common_response,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
+}
+
+func (m *InformaticaResponse) Reset()         { *m = InformaticaResponse{} }
+func (m *InformaticaResponse) String() string { return proto.CompactTextString(m) }
+func (*InformaticaResponse) ProtoMessage()    {}
+func (*InformaticaResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_be3c05494cc022a7, []int{3}
+}
+
+func (m *InformaticaResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_InformaticaResponse.Unmarshal(m, b)
+}
+func (m *InformaticaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_InformaticaResponse.Marshal(b, m, deterministic)
+}
+func (m *InformaticaResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_InformaticaResponse.Merge(m, src)
+}
+func (m *InformaticaResponse) XXX_Size() int {
+	return xxx_messageInfo_InformaticaResponse.Size(m)
+}
+func (m *InformaticaResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_InformaticaResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_InformaticaResponse proto.InternalMessageInfo
+
+func (m *InformaticaResponse) GetCommonResponse() *CommonResponse {
+	if m != nil {
+		return m.CommonResponse
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*Informatica)(nil), "informatica.Informatica")
+	proto.RegisterType((*CommonResponse)(nil), "informatica.CommonResponse")
+	proto.RegisterType((*InformaticaRequest)(nil), "informatica.InformaticaRequest")
+	proto.RegisterType((*InformaticaResponse)(nil), "informatica.InformaticaResponse")
 }
 
 func init() {
@@ -94,19 +222,26 @@ func init() {
 }
 
 var fileDescriptor_be3c05494cc022a7 = []byte{
-	// 188 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x32, 0x4d, 0xad, 0x28, 0x48,
-	0x2d, 0x2a, 0xd1, 0x4f, 0x2e, 0x2a, 0x4d, 0xd1, 0x4d, 0x2c, 0xc8, 0xd4, 0x2d, 0x2d, 0xce, 0xcc,
-	0x4b, 0xd7, 0xcd, 0xcd, 0xcf, 0x4b, 0xcf, 0x4f, 0x49, 0xd2, 0x2f, 0x28, 0xca, 0x2f, 0xc9, 0xd7,
-	0xcf, 0xcc, 0x4b, 0xcb, 0x2f, 0xca, 0x4d, 0x2c, 0xc9, 0x4c, 0x4e, 0xd4, 0x03, 0x8b, 0x08, 0x71,
-	0x23, 0x09, 0x29, 0x15, 0x70, 0x71, 0x7b, 0x22, 0xb8, 0x42, 0x52, 0x5c, 0x1c, 0xc5, 0xa9, 0x85,
-	0xa5, 0xa9, 0x79, 0xc9, 0xa9, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0xac, 0x41, 0x70, 0xbe, 0x90, 0x08,
-	0x17, 0x6b, 0x49, 0x66, 0x49, 0x4e, 0xaa, 0x04, 0x93, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x84, 0x23,
-	0x24, 0xc4, 0xc5, 0x02, 0x32, 0x4f, 0x82, 0x19, 0x2c, 0x08, 0x66, 0x0b, 0x49, 0x73, 0x71, 0x66,
-	0xe4, 0x17, 0x97, 0xc4, 0xe7, 0x25, 0xe6, 0xa6, 0x4a, 0xb0, 0x80, 0x25, 0x38, 0x40, 0x02, 0x7e,
-	0x89, 0xb9, 0xa9, 0x46, 0x22, 0x5c, 0x42, 0x48, 0x36, 0x06, 0xa7, 0x16, 0x95, 0x65, 0x26, 0xa7,
-	0x3a, 0xf1, 0x47, 0xf1, 0x22, 0x39, 0xab, 0x20, 0x29, 0x89, 0x0d, 0xec, 0x58, 0x63, 0x40, 0x00,
-	0x00, 0x00, 0xff, 0xff, 0x55, 0x02, 0x63, 0xd8, 0xe5, 0x00, 0x00, 0x00,
+	// 300 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x91, 0x4f, 0x4f, 0x02, 0x31,
+	0x10, 0xc5, 0x83, 0x02, 0xc2, 0x10, 0x21, 0x56, 0x63, 0x1a, 0x38, 0x48, 0x38, 0x71, 0x01, 0x12,
+	0x8c, 0x17, 0x8f, 0xe0, 0xc5, 0x8b, 0x31, 0x6b, 0xe2, 0x41, 0x0f, 0xa4, 0x94, 0x71, 0x6d, 0x42,
+	0xff, 0xd8, 0x76, 0x8d, 0x1f, 0xdf, 0x6c, 0x77, 0xd1, 0xf6, 0xc0, 0x6d, 0xdf, 0xdb, 0xe9, 0x9b,
+	0xdf, 0xcc, 0xc0, 0x1d, 0xfe, 0x18, 0xb4, 0x7e, 0xc1, 0x6d, 0xb1, 0x9b, 0x31, 0x23, 0x66, 0x85,
+	0x13, 0x2a, 0x9f, 0x49, 0xad, 0x72, 0xbd, 0xdb, 0x2e, 0x8c, 0xd5, 0x5e, 0x2f, 0x84, 0xfa, 0xd0,
+	0x56, 0x32, 0x2f, 0x38, 0x9b, 0x07, 0x87, 0xf4, 0x22, 0x6b, 0x62, 0xa0, 0xf7, 0xf8, 0x2f, 0xc9,
+	0x10, 0x3a, 0x0e, 0xbf, 0x0a, 0x54, 0x1c, 0x69, 0x63, 0xdc, 0x98, 0xb6, 0xb2, 0x3f, 0x4d, 0xae,
+	0xa0, 0xe5, 0x85, 0xdf, 0x23, 0x3d, 0x19, 0x37, 0xa6, 0xdd, 0xac, 0x12, 0x84, 0x40, 0xb3, 0xcc,
+	0xa3, 0xa7, 0xc1, 0x0c, 0xdf, 0x64, 0x04, 0xdd, 0x4f, 0xed, 0xfc, 0x46, 0x31, 0x89, 0xb4, 0x19,
+	0x7e, 0x74, 0x4a, 0xe3, 0x89, 0x49, 0x9c, 0xac, 0xa0, 0xbf, 0xd6, 0x52, 0x6a, 0x95, 0xa1, 0x33,
+	0x5a, 0x39, 0x24, 0xd7, 0xd0, 0x76, 0x9e, 0xf9, 0xc2, 0xd5, 0x2d, 0x6b, 0x45, 0x28, 0x9c, 0x49,
+	0x74, 0x8e, 0xe5, 0x87, 0x96, 0x07, 0x39, 0x79, 0x06, 0x12, 0x51, 0x67, 0x25, 0xa1, 0xf3, 0xe4,
+	0x1e, 0xe2, 0xd1, 0x42, 0x58, 0x6f, 0x49, 0xe7, 0xf1, 0x06, 0xe2, 0x57, 0xc9, 0x1e, 0xde, 0xe1,
+	0x32, 0x49, 0xac, 0xd1, 0x1e, 0x60, 0xc0, 0x03, 0xec, 0xc6, 0xd6, 0x56, 0x1d, 0x3b, 0x4a, 0x62,
+	0xd3, 0x81, 0xb2, 0x3e, 0x4f, 0xf4, 0x72, 0x9f, 0xe0, 0xbe, 0xa0, 0xfd, 0x16, 0x1c, 0xc9, 0x2b,
+	0x5c, 0xac, 0x2d, 0x32, 0x8f, 0xf1, 0x01, 0x6e, 0x8e, 0xe2, 0x56, 0x43, 0x0e, 0xc7, 0xc7, 0x0b,
+	0xaa, 0x6e, 0xab, 0xc1, 0xdb, 0x79, 0x54, 0x62, 0xb6, 0xdb, 0x76, 0xb8, 0xfb, 0xed, 0x6f, 0x00,
+	0x00, 0x00, 0xff, 0xff, 0x7c, 0xca, 0xca, 0x08, 0x30, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -121,6 +256,7 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type InformaticaServiceClient interface {
+	CreateInformatica(ctx context.Context, in *InformaticaRequest, opts ...grpc.CallOption) (*InformaticaResponse, error)
 }
 
 type informaticaServiceClient struct {
@@ -131,18 +267,51 @@ func NewInformaticaServiceClient(cc *grpc.ClientConn) InformaticaServiceClient {
 	return &informaticaServiceClient{cc}
 }
 
+func (c *informaticaServiceClient) CreateInformatica(ctx context.Context, in *InformaticaRequest, opts ...grpc.CallOption) (*InformaticaResponse, error) {
+	out := new(InformaticaResponse)
+	err := c.cc.Invoke(ctx, "/informatica.InformaticaService/CreateInformatica", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InformaticaServiceServer is the server API for InformaticaService service.
 type InformaticaServiceServer interface {
+	CreateInformatica(context.Context, *InformaticaRequest) (*InformaticaResponse, error)
 }
 
 func RegisterInformaticaServiceServer(s *grpc.Server, srv InformaticaServiceServer) {
 	s.RegisterService(&_InformaticaService_serviceDesc, srv)
 }
 
+func _InformaticaService_CreateInformatica_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InformaticaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InformaticaServiceServer).CreateInformatica(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/informatica.InformaticaService/CreateInformatica",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InformaticaServiceServer).CreateInformatica(ctx, req.(*InformaticaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _InformaticaService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "informatica.InformaticaService",
 	HandlerType: (*InformaticaServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "expert/crud-api-using-mongodb/proto/informatica.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "CreateInformatica",
+			Handler:    _InformaticaService_CreateInformatica_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "expert/crud-api-using-mongodb/proto/informatica.proto",
 }

@@ -10,6 +10,19 @@ message Informatica {
     string host_name = 4;
 }
 
+message CommonResponse{
+    int32 status = 1;
+    string message = 2;
+}
+
+message InformaticaRequest {
+    Informatica informatica = 1;
+}
+
+message InformaticaResponse {
+    CommonResponse common_response = 1;
+}
+
 service InformaticaService {
-    
+    rpc CreateInformatica(InformaticaRequest) returns (InformaticaResponse);
 }
