@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package informatica;
+option go_package = "informaticapb";
+
+message Informatica {
+    int32 sequence = 1;
+    string title = 2;
+    string info = 3;
+    string host_name = 4;
+}
+
+service InformaticaService {
+    
+}

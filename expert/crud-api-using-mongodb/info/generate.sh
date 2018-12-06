@@ -25,3 +25,6 @@ sudo mongod
 # or
 sudo killall -15 mongod
 sudo mongod
+
+lsof -i :5000 
+sudo kill -9 <pid>
