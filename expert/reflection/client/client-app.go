@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"gRPC-Remote-Procedure-Call-/basic/bi-directional-streaming-API/proto"
+	"gRPC-Remote-Procedure-Call-/expert/reflection/proto"
 
 	"google.golang.org/grpc"
 )
