@@ -35,16 +35,6 @@ func InsertDataInInformatica(req *informaticapb.Informatica) error {
 			fmt.Sprintln("Internal MongoDb Error:", err))
 	}
 
-	// col := mongodb.CreateCollection("informaiticaData")
-	// log.Println("Create Collection: ", col)
-	// res, err := col.InsertOne(context.Background(), data)
-	// if err != nil {
-	// 	return status.Errorf(
-	// 		codes.Internal,
-	// 		fmt.Sprintln("Internal MongoDb Error:", err))
-	// }
-	// log.Println("Insert the row successfully in mongodb: ", res)
-
 	oid, ok := res.InsertedID.(objectid.ObjectID)
 	if !ok {
 		return status.Errorf(
