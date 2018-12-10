@@ -98,10 +98,22 @@ func UpdateDataInInformatica(req *informaticapb.UpdateInformaticaRequest) error 
 	data.HostName = req.GetHostName()
 
 	_, err := mongodb.CreateCollection("informaticaData").ReplaceOne(context.Background(), filter, data)
+
 	if err != nil {
 		return status.Errorf(
 			codes.Aborted,
 			fmt.Sprintln("Data can't updated: ", err))
+	}
+	return nil
+}
+
+func DeleteInformaticaRow(req *informaticapb.UpdateInformaticaRequest) error {
+	filter := bson.M{"sequence": req.GetUpdateSequence()}
+	_, err := mongodb.CreateCollection("informaticaData").DeleteOne(context.Background(), filter)
+	if err != nil {
+		return status.Errorf(
+			codes.Aborted,
+			fmt.Sprintln("Some error occured while delete data: ", err))
 	}
 	return nil
 }

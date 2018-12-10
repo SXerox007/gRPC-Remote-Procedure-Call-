@@ -46,4 +46,5 @@ service InformaticaService {
     rpc CreateInformatica(InformaticaRequest) returns (InformaticaResponse);
     rpc GetInformatica(CommonRequest) returns (GetInformaticaResponse);
     rpc UpdateInformatica(UpdateInformaticaRequest) returns (InformaticaResponse);
+    rpc DeleteInformatica(UpdateInformaticaRequest) returns (InformaticaResponse);
 }

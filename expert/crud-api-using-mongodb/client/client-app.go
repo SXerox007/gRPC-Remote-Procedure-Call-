@@ -35,7 +35,28 @@ func ClientSetup() {
 	ReadInformatica(msg)
 	//update the informatica
 	UpdateInformatica(msg)
+	//delete the informatica
+	DeleteInformatica(msg)
 
+}
+
+func DeleteInformatica(msg informaticapb.InformaticaServiceClient) {
+	req := &informaticapb.UpdateInformaticaRequest{
+		Informatica: &informaticapb.Informatica{
+			Sequence: generateRandomSequence(),
+			Title:    strconv.Itoa(int(generateRandomSequence())) + " Informatica",
+			Info:     "Informatica",
+			HostName: "Unknown",
+		},
+		UpdateSequence: 2891,
+		HostName:       "Black_Dreams",
+	}
+	res, err := msg.UpdateInformatica(context.Background(), req)
+	if err == nil {
+		log.Println("Data: ", res.GetCommonResponse())
+	} else {
+		log.Println("Error: ", err)
+	}
 }
 
 func UpdateInformatica(msg informaticapb.InformaticaServiceClient) {

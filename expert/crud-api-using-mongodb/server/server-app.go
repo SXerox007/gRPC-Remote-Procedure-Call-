@@ -77,6 +77,20 @@ func (*Server) UpdateInformatica(ctx context.Context, req *informaticapb.UpdateI
 
 }
 
+//delete the informatica data
+func (*Server) DeleteInformatica(ctx context.Context, req *informaticapb.UpdateInformaticaRequest) (*informaticapb.InformaticaResponse, error) {
+	err := informatica.DeleteInformaticaRow(req)
+	if err == nil {
+		return &informaticapb.InformaticaResponse{
+			CommonResponse: &informaticapb.CommonResponse{
+				Status:  http.StatusOK,
+				Message: "Success",
+			},
+		}, nil
+	}
+	return nil, err
+}
+
 func GetEnv() string {
 	env, isEnv := os.LookupEnv("environment")
 	if !isEnv {
