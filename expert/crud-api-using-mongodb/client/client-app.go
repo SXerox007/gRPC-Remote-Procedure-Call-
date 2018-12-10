@@ -46,7 +46,7 @@ func UpdateInformatica(msg informaticapb.InformaticaServiceClient) {
 			Info:     "Informatica",
 			HostName: "Unknown",
 		},
-		UpdateSequence: 5022,
+		UpdateSequence: 2891,
 		HostName:       "Black_Dreams",
 	}
 	res, err := msg.UpdateInformatica(context.Background(), req)

@@ -87,6 +87,7 @@ func UpdateDataInInformatica(req *informaticapb.UpdateInformaticaRequest) error 
 
 	//for single data decode
 	if err := res.Decode(data); err != nil {
+		fmt.Sprintln("Data without decode", res)
 		return status.Errorf(
 			codes.Aborted,
 			fmt.Sprintln("Data Can't be decoded", err))
