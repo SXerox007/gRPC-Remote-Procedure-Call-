@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"math/rand"
+	"strconv"
+	"time"
 
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/proto"
 
@@ -31,7 +33,28 @@ func ClientSetup() {
 	CreateInformatica(msg)
 	//read the informatica
 	ReadInformatica(msg)
+	//update the informatica
+	UpdateInformatica(msg)
 
+}
+
+func UpdateInformatica(msg informaticapb.InformaticaServiceClient) {
+	req := &informaticapb.UpdateInformaticaRequest{
+		Informatica: &informaticapb.Informatica{
+			Sequence: generateRandomSequence(),
+			Title:    strconv.Itoa(int(generateRandomSequence())) + " Informatica",
+			Info:     "Informatica",
+			HostName: "Unknown",
+		},
+		UpdateSequence: 356,
+		HostName:       "Black_Dreams",
+	}
+	res, err := msg.UpdateInformatica(context.Background(), req)
+	if err == nil {
+		log.Println("Data: ", res.GetCommonResponse())
+	} else {
+		log.Println("Error: ", err)
+	}
 }
 
 func ReadInformatica(msg informaticapb.InformaticaServiceClient) {
@@ -52,7 +75,7 @@ func CreateInformatica(msg informaticapb.InformaticaServiceClient) {
 	req := &informaticapb.InformaticaRequest{
 		Informatica: &informaticapb.Informatica{
 			Sequence: generateRandomSequence(),
-			Title:    string(generateRandomSequence()) + " Informatica",
+			Title:    strconv.Itoa(int(generateRandomSequence())) + " Informatica",
 			Info:     "Informatica",
 			HostName: "Unknown",
 		},
@@ -66,5 +89,6 @@ func CreateInformatica(msg informaticapb.InformaticaServiceClient) {
 }
 
 func generateRandomSequence() int32 {
-	return int32(rand.Intn(999) * 33 / (2 - rand.Intn(100)))
+	rand.Seed(time.Now().UTC().UnixNano())
+	return int32(rand.Intn(9999))
 }

@@ -36,7 +36,14 @@ message GetInformaticaResponse{
     repeated Informatica data = 2;
 }
 
+message UpdateInformaticaRequest {
+    Informatica informatica = 1;
+    int32 update_sequence  = 2;
+    string host_name = 3;
+}
+
 service InformaticaService {
     rpc CreateInformatica(InformaticaRequest) returns (InformaticaResponse);
     rpc GetInformatica(CommonRequest) returns (GetInformaticaResponse);
+    rpc UpdateInformatica(UpdateInformaticaRequest) returns (InformaticaResponse);
 }
