@@ -27,6 +27,28 @@ func ClientSetup() {
 
 	msg := informaticapb.NewInformaticaServiceClient(client)
 
+	//create the informatica
+	CreateInformatica(msg)
+	//read the informatica
+	ReadInformatica(msg)
+
+}
+
+func ReadInformatica(msg informaticapb.InformaticaServiceClient) {
+	req := &informaticapb.CommonRequest{
+		AccessToken: true,
+		Email:       "sumitthakur769@gmail.com",
+	}
+	res, err := msg.GetInformatica(context.Background(), req)
+	if err == nil {
+		log.Println("Common Data: ", res.GetCommonResponse())
+		log.Println("List of All Data: ", res.GetData())
+	} else {
+		log.Println("Error: ", err)
+	}
+}
+
+func CreateInformatica(msg informaticapb.InformaticaServiceClient) {
 	req := &informaticapb.InformaticaRequest{
 		Informatica: &informaticapb.Informatica{
 			Sequence: generateRandomSequence(),
@@ -35,15 +57,14 @@ func ClientSetup() {
 			HostName: "Unknown",
 		},
 	}
-	stream, err := msg.CreateInformatica(context.Background(), req)
+	res, err := msg.CreateInformatica(context.Background(), req)
 	if err == nil {
-		log.Println("Data: ", stream.GetCommonResponse())
+		log.Println("Data: ", res.GetCommonResponse())
 	} else {
 		log.Println("Error: ", err)
 	}
-
 }
 
 func generateRandomSequence() int32 {
-	return int32(rand.Intn(999) * 33 / (2 - rand.Intn(5)))
+	return int32(rand.Intn(999) * 33 / (2 - rand.Intn(100)))
 }

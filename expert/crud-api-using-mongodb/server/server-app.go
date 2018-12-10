@@ -39,7 +39,6 @@ func (*Server) CreateInformatica(ctx context.Context, req *informaticapb.Informa
 func (*Server) GetInformatica(ctx context.Context, req *informaticapb.CommonRequest) (*informaticapb.GetInformaticaResponse, error) {
 	data, err := informatica.GetDataFromInformatica(req.GetAccessToken(), req.GetEmail())
 	if err == nil {
-
 		informaticaData := []*informaticapb.Informatica{}
 
 		for index, element := range data {

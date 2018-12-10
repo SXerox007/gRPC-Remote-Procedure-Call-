@@ -49,7 +49,7 @@ func InsertDataInInformatica(req *informaticapb.Informatica) error {
 
 func GetDataFromInformatica(accessToken bool, email string) ([]*Informatica, error) {
 	if accessToken {
-		data := []*Informatica{}
+		//data := []*Informatica{}
 		//use filter if you want to get data from a particular id
 		//filter := bson.M("_id",data.id)
 		res, err := mongodb.CreateCollection("informaticaData").Find(context.Background(), nil)
@@ -58,14 +58,18 @@ func GetDataFromInformatica(accessToken bool, email string) ([]*Informatica, err
 				codes.NotFound,
 				fmt.Sprintln("No data found", err))
 		}
-
-		if err := res.Decode(data); err != nil {
-			return nil, status.Errorf(
-				codes.Aborted,
-				fmt.Sprintln("Data Can't be decoded", err))
+		var items []*Informatica
+		for res.Next(nil) {
+			item := Informatica{}
+			if err := res.Decode(&item); err != nil {
+				return nil, status.Errorf(
+					codes.Aborted,
+					fmt.Sprintln("Data Can't be decoded", err))
+			}
+			items = append(items, &item)
 		}
 
-		return data, nil
+		return items, nil
 	}
 	return nil, status.Errorf(
 		codes.Unauthenticated,
