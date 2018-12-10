@@ -15,10 +15,10 @@ const (
 )
 
 func InitDB() error {
-	client, err := mongo.NewClient(DB_MONGODB_URL)
+	client, _ = mongo.NewClient(DB_MONGODB_URL)
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
-	err = client.Connect(ctx)
+	err := client.Connect(ctx)
 	return err
 }
 

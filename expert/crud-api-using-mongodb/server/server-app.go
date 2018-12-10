@@ -21,6 +21,7 @@ type Server struct {
 }
 
 func (*Server) CreateInformatica(ctx context.Context, req *informaticapb.InformaticaRequest) (*informaticapb.InformaticaResponse, error) {
+	log.Println("Request data: ", req.GetInformatica())
 	//insert data into the mongodb
 	err := informatica.InsertDataInInformatica(req.GetInformatica())
 	if err == nil {
