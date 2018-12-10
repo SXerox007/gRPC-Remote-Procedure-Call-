@@ -62,6 +62,21 @@ func (*Server) GetInformatica(ctx context.Context, req *informaticapb.CommonRequ
 	return nil, err
 }
 
+//update the informatica
+func (*Server) UpdateInformatica(ctx context.Context, req *informaticapb.UpdateInformaticaRequest) (*informaticapb.InformaticaResponse, error) {
+	err := informatica.UpdateDataInInformatica(req)
+	if err == nil {
+		return &informaticapb.InformaticaResponse{
+			CommonResponse: &informaticapb.CommonResponse{
+				Status:  http.StatusOK,
+				Message: "Success",
+			},
+		}, nil
+	}
+	return nil, err
+
+}
+
 func GetEnv() string {
 	env, isEnv := os.LookupEnv("environment")
 	if !isEnv {

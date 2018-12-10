@@ -7,6 +7,8 @@ import (
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/proto"
 	"log"
 
+	"github.com/mongodb/mongo-go-driver/bson"
+
 	objectid "github.com/mongodb/mongo-go-driver/bson/primitive"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -74,4 +76,31 @@ func GetDataFromInformatica(accessToken bool, email string) ([]*Informatica, err
 	return nil, status.Errorf(
 		codes.Unauthenticated,
 		fmt.Sprintln("Access Token is False"))
+}
+
+func UpdateDataInInformatica(req *informaticapb.UpdateInformaticaRequest) error {
+	InsertDataInInformatica(req.GetInformatica())
+	data := &Informatica{}
+	filter := bson.M{"sequence": req.GetUpdateSequence()}
+
+	res := mongodb.CreateCollection("informaticaData").FindOne(context.Background(), filter)
+
+	//for single data decode
+	if err := res.Decode(data); err != nil {
+		return status.Errorf(
+			codes.Aborted,
+			fmt.Sprintln("Data Can't be decoded", err))
+	}
+
+	//update host name on particular sequence
+	filter = bson.M{"_id": data.ID}
+	data.HostName = req.GetHostName()
+
+	_, err := mongodb.CreateCollection("informaticaData").ReplaceOne(context.Background(), filter, data)
+	if err != nil {
+		return status.Errorf(
+			codes.Aborted,
+			fmt.Sprintln("Data can't updated: ", err))
+	}
+	return nil
 }
