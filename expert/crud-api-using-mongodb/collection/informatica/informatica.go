@@ -46,3 +46,28 @@ func InsertDataInInformatica(req *informaticapb.Informatica) error {
 
 	return nil
 }
+
+func GetDataFromInformatica(accessToken bool, email string) ([]*Informatica, error) {
+	if accessToken {
+		data := []*Informatica{}
+		//use filter if you want to get data from a particular id
+		//filter := bson.M("_id",data.id)
+		res, err := mongodb.CreateCollection("informaticaData").Find(context.Background(), nil)
+		if err != nil {
+			return nil, status.Errorf(
+				codes.NotFound,
+				fmt.Sprintln("No data found", err))
+		}
+
+		if err := res.Decode(data); err != nil {
+			return nil, status.Errorf(
+				codes.Aborted,
+				fmt.Sprintln("Data Can't be decoded", err))
+		}
+
+		return data, nil
+	}
+	return nil, status.Errorf(
+		codes.Unauthenticated,
+		fmt.Sprintln("Access Token is False"))
+}

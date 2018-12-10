@@ -15,6 +15,14 @@ message CommonResponse{
     string message = 2;
 }
 
+message CommonRequest{
+    //as of now it will be bool
+    // but access_token should be string given when login
+    // it just for sample purpose
+    bool access_token = 1;
+    string email = 2;
+}
+
 message InformaticaRequest {
     Informatica informatica = 1;
 }
@@ -23,6 +31,12 @@ message InformaticaResponse {
     CommonResponse common_response = 1;
 }
 
+message GetInformaticaResponse{
+    CommonResponse common_response = 1;
+    repeated Informatica data = 2;
+}
+
 service InformaticaService {
     rpc CreateInformatica(InformaticaRequest) returns (InformaticaResponse);
+    rpc GetInformatica(CommonRequest) returns (GetInformaticaResponse);
 }

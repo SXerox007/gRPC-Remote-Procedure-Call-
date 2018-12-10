@@ -45,5 +45,5 @@ func ClientSetup() {
 }
 
 func generateRandomSequence() int32 {
-	return int32(rand.Intn(100) / (2 * rand.Intn(56)))
+	return int32(rand.Intn(999) * 33 / (2 - rand.Intn(5)))
 }

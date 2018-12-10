@@ -20,8 +20,8 @@ import (
 type Server struct {
 }
 
+// Create informatica
 func (*Server) CreateInformatica(ctx context.Context, req *informaticapb.InformaticaRequest) (*informaticapb.InformaticaResponse, error) {
-	log.Println("Request data: ", req.GetInformatica())
 	//insert data into the mongodb
 	err := informatica.InsertDataInInformatica(req.GetInformatica())
 	if err == nil {
@@ -30,6 +30,34 @@ func (*Server) CreateInformatica(ctx context.Context, req *informaticapb.Informa
 				Status:  http.StatusOK,
 				Message: "Success",
 			},
+		}, nil
+	}
+	return nil, err
+}
+
+// Get informatica
+func (*Server) GetInformatica(ctx context.Context, req *informaticapb.CommonRequest) (*informaticapb.GetInformaticaResponse, error) {
+	data, err := informatica.GetDataFromInformatica(req.GetAccessToken(), req.GetEmail())
+	if err == nil {
+
+		informaticaData := []*informaticapb.Informatica{}
+
+		for index, element := range data {
+			informaticaData = append(informaticaData[:index], &informaticapb.Informatica{
+				Sequence: element.Sequence,
+				Title:    element.Title,
+				Info:     element.Info,
+				HostName: element.HostName,
+			},
+			)
+		}
+
+		return &informaticapb.GetInformaticaResponse{
+			CommonResponse: &informaticapb.CommonResponse{
+				Status:  http.StatusOK,
+				Message: "Success",
+			},
+			Data: informaticaData,
 		}, nil
 	}
 	return nil, err
