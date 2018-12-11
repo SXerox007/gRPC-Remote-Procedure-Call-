@@ -30,11 +30,11 @@ func ClientSetup() {
 	msg := informaticapb.NewInformaticaServiceClient(client)
 
 	//create the informatica
-	//CreateInformatica(msg)
+	CreateInformatica(msg)
 	//read the informatica
-	//ReadInformatica(msg)
+	ReadInformatica(msg)
 	//update the informatica
-	//UpdateInformatica(msg)
+	UpdateInformatica(msg)
 	//delete the informatica
 	DeleteInformatica(msg)
 
