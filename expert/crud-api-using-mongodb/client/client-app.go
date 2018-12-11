@@ -30,11 +30,11 @@ func ClientSetup() {
 	msg := informaticapb.NewInformaticaServiceClient(client)
 
 	//create the informatica
-	CreateInformatica(msg)
+	//CreateInformatica(msg)
 	//read the informatica
-	ReadInformatica(msg)
+	//ReadInformatica(msg)
 	//update the informatica
-	UpdateInformatica(msg)
+	//UpdateInformatica(msg)
 	//delete the informatica
 	DeleteInformatica(msg)
 
@@ -48,10 +48,10 @@ func DeleteInformatica(msg informaticapb.InformaticaServiceClient) {
 			Info:     "Informatica",
 			HostName: "Unknown",
 		},
-		UpdateSequence: 2891,
+		UpdateSequence: 8760,
 		HostName:       "Black_Dreams",
 	}
-	res, err := msg.UpdateInformatica(context.Background(), req)
+	res, err := msg.DeleteInformatica(context.Background(), req)
 	if err == nil {
 		log.Println("Data: ", res.GetCommonResponse())
 	} else {
@@ -67,7 +67,7 @@ func UpdateInformatica(msg informaticapb.InformaticaServiceClient) {
 			Info:     "Informatica",
 			HostName: "Unknown",
 		},
-		UpdateSequence: 2891,
+		UpdateSequence: 8786,
 		HostName:       "Black_Dreams",
 	}
 	res, err := msg.UpdateInformatica(context.Background(), req)
