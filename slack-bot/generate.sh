@@ -8,7 +8,7 @@ go run expert/crud-api-using-mongodb/server/server-app.go
 make server
 
 #client-run
-go run expert/crud-api-using-mongodb/client/client-app.go
+go run slack-bot/client/client-app.go
 //# or 
 make client
 
@@ -16,4 +16,8 @@ make client
 #For get slack package 
 go get github.com/nlopes/slack
 //#source the keys when run hit command
-source keys
+source slack-bot/secure-keys/keys
+
+
+#We use wit.ai for the msgs
+#create account and just use

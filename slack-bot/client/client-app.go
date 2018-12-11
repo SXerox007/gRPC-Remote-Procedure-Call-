@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"gRPC-Remote-Procedure-Call-/slack-bot/client/slackclient"
-	"log"
 
 	"github.com/nlopes/slack"
 )
@@ -12,6 +12,10 @@ func main() {
 }
 
 func Init() {
+	slackbotReciveMsgSetup()
+}
+
+func slackbotReciveMsgSetup() {
 	slackclient.InitSlack()
 	rtm := slackclient.CreateRTM()
 	//manage the connection
@@ -28,5 +32,24 @@ func Init() {
 }
 
 func incomingMessages(ev *slack.MessageEvent) {
-	log.Println(ev)
+	//print the slack incoming msg
+	//log.Println(ev)
+	msgBotSend(ev)
+
+}
+
+func msgBotSend(ev *slack.MessageEvent) {
+	_, _, err := slackclient.GetSlackClient().PostMessage(ev.User, slack.MsgOptionPostMessageParameters(
+		slack.PostMessageParameters{
+			AsUser:         true,
+			ReplyBroadcast: true,
+			Parse:          "Parser msg",
+			Channel:        ev.Channel,
+			User:           ev.User,
+		},
+	))
+
+	if err != nil {
+		fmt.Println("Error Slack:", err)
+	}
 }
