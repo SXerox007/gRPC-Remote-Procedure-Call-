@@ -3,8 +3,6 @@ package db
 import (
 	"database/sql"
 	"fmt"
-
-	_ "github.com/lib/pq"
 )
 
 func checkErr(err error) {
@@ -17,8 +15,8 @@ const (
 	host     = "localhost"
 	port     = 5432
 	user     = "postgres"
-	password = "sumitpassword"
-	dbname   = "baseproject"
+	password = "********"
+	dbname   = "slackbotdb"
 )
 
 func DBConnecting(env string) (*sql.DB, error) {
