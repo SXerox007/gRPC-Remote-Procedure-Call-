@@ -1,13 +1,16 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/logs"
+	"gRPC-Remote-Procedure-Call-/slack-bot/collection/slackdump"
 	"gRPC-Remote-Procedure-Call-/slack-bot/log"
 	"gRPC-Remote-Procedure-Call-/slack-bot/mongodb"
 	"gRPC-Remote-Procedure-Call-/slack-bot/proto"
+	"net/http"
 
 	"net"
 	"os"
@@ -18,6 +21,23 @@ import (
 )
 
 type Server struct {
+}
+
+/**
+*
+* Slack Dumping Ground
+*
+**/
+func (*Server) SlackDumpingGround(ctx context.Context, req *slackbot.SlackDumpRequest) (*slackbot.SlackDumpResponse, error) {
+	if err := slackdump.DumpingGroundSlackbot(req); err == nil {
+		return &slackbot.SlackDumpResponse{
+			CommonResponse: &slackbot.CommonResponse{
+				Code:    http.StatusOK,
+				Message: "Success",
+			},
+		}, nil
+	}
+	return nil, errors.New("Something went wrong")
 }
 
 func GetEnv() string {

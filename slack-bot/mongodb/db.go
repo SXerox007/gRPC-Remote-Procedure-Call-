@@ -10,7 +10,7 @@ import (
 var client *mongo.Client
 
 const (
-	DB_NAME        = "Informatica"
+	DB_NAME        = "SlackDump"
 	DB_MONGODB_URL = "mongodb://localhost:27017"
 )
 
