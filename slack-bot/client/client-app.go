@@ -1,17 +1,30 @@
 package main
 
 import (
-	"fmt"
+	"errors"
+	"flag"
 	"gRPC-Remote-Procedure-Call-/slack-bot/client/slackclient"
+	"gRPC-Remote-Procedure-Call-/slack-bot/log"
 
 	"github.com/nlopes/slack"
 )
+
+func initLogs() {
+	logLevel := flag.Int("loglevel", 1, "an integer value (0-4)")
+	flag.Parse()
+	// save logs in log.txt
+	log.SetLogLevel(log.Level(*logLevel), "logs.txt")
+	err := errors.New("Start trace Important Error")
+	//to trace the error
+	log.Info.Println(err)
+}
 
 func main() {
 	Init()
 }
 
 func Init() {
+	initLogs()
 	slackbotReciveMsgSetup()
 }
 
@@ -35,7 +48,6 @@ func incomingMessages(ev *slack.MessageEvent) {
 	//print the slack incoming msg
 	//log.Println(ev)
 	msgBotSend(ev)
-
 }
 
 func msgBotSend(ev *slack.MessageEvent) {
@@ -50,6 +62,6 @@ func msgBotSend(ev *slack.MessageEvent) {
 	))
 
 	if err != nil {
-		fmt.Println("Error Slack:", err)
+		log.Error.Println("Error Slack:", err)
 	}
 }
