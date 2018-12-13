@@ -1,0 +1,5 @@
+INFO: 2018/12/14 01:24:32 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/14 01:26:47 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/14 01:28:06 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/14 01:29:06 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/14 01:29:21 client-app.go:76: Error Slack: no_text

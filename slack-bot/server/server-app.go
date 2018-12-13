@@ -9,6 +9,7 @@ import (
 	"gRPC-Remote-Procedure-Call-/slack-bot/collection/slackdump"
 	"gRPC-Remote-Procedure-Call-/slack-bot/log"
 	"gRPC-Remote-Procedure-Call-/slack-bot/mongodb"
+	"gRPC-Remote-Procedure-Call-/slack-bot/postgres"
 	"gRPC-Remote-Procedure-Call-/slack-bot/proto"
 	"net/http"
 
@@ -29,7 +30,9 @@ type Server struct {
 *
 **/
 func (*Server) SlackDumpingGround(ctx context.Context, req *slackbot.SlackDumpRequest) (*slackbot.SlackDumpResponse, error) {
-	if err := slackdump.DumpingGroundSlackbot(req); err == nil {
+	err := slackdump.DumpingGroundSlackbot(req)
+
+	if err == nil {
 		return &slackbot.SlackDumpResponse{
 			CommonResponse: &slackbot.CommonResponse{
 				Code:    http.StatusOK,
@@ -55,7 +58,7 @@ func main() {
 func Init() {
 	logsSetup()
 	MongodbSetup()
-	PgSetup()
+	//PgSetup()
 	ServerSetup()
 }
 
@@ -76,7 +79,7 @@ func logsSetup() {
 }
 
 func PgSetup() {
-
+	db.DBConnecting()
 }
 
 func MongodbSetup() {
@@ -85,7 +88,6 @@ func MongodbSetup() {
 		log.Error.Println("Can't connect to mongoDB: ", err)
 		return
 	}
-
 }
 
 func ServerSetup() {
