@@ -21,28 +21,25 @@ type SlackDumpData struct {
 }
 
 func DumpingGroundSlackbot(req *slackbot.SlackDumpRequest) error {
-	if req.GetMongodbEnable() {
-		data := SlackDumpData{
-			SenderMessage: req.GetQuestionFromUser(),
-			ChatBotReply:  req.GetAnswerFromAi(),
-			CaptureTime:   time.Now(),
-		}
-		res, err := mongodb.CreateCollection("dump").InsertOne(context.Background(), data)
-		if err != nil {
-			return status.Errorf(
-				codes.Internal,
-				fmt.Sprintln("Internal MongoDb Error:", err))
-		}
-
-		oid, ok := res.InsertedID.(objectid.ObjectID)
-		if !ok {
-			return status.Errorf(
-				codes.Internal,
-				fmt.Sprintln("Internal oid Error:", ok))
-		}
-
-		log.Println("oid: ", oid)
-
+	data := SlackDumpData{
+		SenderMessage: req.GetQuestionFromUser(),
+		ChatBotReply:  req.GetAnswerFromAi(),
+		CaptureTime:   time.Now(),
 	}
+	res, err := mongodb.CreateCollection("dump").InsertOne(context.Background(), data)
+	if err != nil {
+		return status.Errorf(
+			codes.Internal,
+			fmt.Sprintln("Internal MongoDb Error:", err))
+	}
+
+	oid, ok := res.InsertedID.(objectid.ObjectID)
+	if !ok {
+		return status.Errorf(
+			codes.Internal,
+			fmt.Sprintln("Internal oid Error:", ok))
+	}
+
+	log.Println("oid: ", oid)
 	return nil
 }

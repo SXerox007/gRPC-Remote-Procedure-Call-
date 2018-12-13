@@ -54,7 +54,8 @@ func main() {
 
 func Init() {
 	logsSetup()
-	dbSetup()
+	MongodbSetup()
+	PgSetup()
 	ServerSetup()
 }
 
@@ -74,7 +75,11 @@ func logsSetup() {
 
 }
 
-func dbSetup() {
+func PgSetup() {
+
+}
+
+func MongodbSetup() {
 	if err := mongodb.InitDB(); err != nil {
 		//for saving
 		log.Error.Println("Can't connect to mongoDB: ", err)

@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var db *sql.DB
+
 func checkErr(err error) {
 	if err != nil {
 		panic(err)
@@ -19,25 +21,21 @@ const (
 	dbname   = "slackbotdb"
 )
 
-func DBConnecting(env string) (*sql.DB, error) {
+func DBConnecting(env string) {
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
-	db, err := sql.Open("postgres", psqlInfo)
-	if err != nil {
-		panic(err)
-	}
+	db, _ = sql.Open("postgres", psqlInfo)
+
 	defer db.Close()
 
-	err = db.Ping()
+	err := db.Ping()
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println("Successfully connected!")
 
-	//sampleDataEntry(db)
-	return db, err
 }
 
 //Example
@@ -49,4 +47,8 @@ func sampleDataEntry(db *sql.DB) {
 	id := 0
 	db.QueryRow(sqlStatement, 30, "abc@g.co", "bac", "abc").Scan(&id)
 	fmt.Println("New Record ID is:", id)
+}
+
+func GetClient() *sql.DB {
+	return db
 }
