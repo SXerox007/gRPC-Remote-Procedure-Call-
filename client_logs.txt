@@ -3,3 +3,15 @@ INFO: 2018/12/14 01:26:47 client-app.go:23: Start trace Client Important Error
 INFO: 2018/12/14 01:28:06 client-app.go:23: Start trace Client Important Error
 INFO: 2018/12/14 01:29:06 client-app.go:23: Start trace Client Important Error
 ERROR: 2018/12/14 01:29:21 client-app.go:76: Error Slack: no_text
+INFO: 2018/12/15 00:30:05 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/15 00:30:37 client-app.go:78: Error Slack: no_text
+ERROR: 2018/12/15 01:04:49 client-app.go:78: Error Slack: no_text
+INFO: 2018/12/15 01:25:17 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/15 01:25:28 client-app.go:67: Error Slack: user_not_in_channel
+INFO: 2018/12/15 01:28:35 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/15 01:28:49 client-app.go:66: Error Slack: no_text
+INFO: 2018/12/15 01:30:10 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/15 01:30:17 client-app.go:66: Error Slack: invalid_thread_ts
+INFO: 2018/12/15 01:32:28 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/15 01:32:49 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/15 01:33:36 client-app.go:57: Error Slack: <nil>

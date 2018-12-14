@@ -33,10 +33,9 @@ func Init() {
 }
 
 func slackbotReciveMsgSetup() {
-	fmt.Println("Here 1 point")
 	slackclient.InitSlack()
 	rtm := slackclient.CreateRTM()
-	fmt.Println("Here 1 point")
+
 	//manage the connection
 	go rtm.ManageConnection()
 	//incoming message
@@ -44,7 +43,6 @@ func slackbotReciveMsgSetup() {
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
 			//if len(ev.BotID) == 0 {
-			fmt.Println("Here 2 point")
 			go incomingMessages(ev)
 			//}
 		}
@@ -63,22 +61,52 @@ func incomingMessages(ev *slack.MessageEvent) {
 }
 
 func msgBotSend(ev *slack.MessageEvent) (error, string) {
-	_, _, err := slackclient.GetSlackClient().PostMessage(ev.User, slack.MsgOptionPostMessageParameters(
-		slack.PostMessageParameters{
-			AsUser:         true,
-			ReplyBroadcast: true,
-			Parse:          "Parser msg",
-			Channel:        ev.Channel,
-			User:           ev.User,
-		},
-	))
-
+	_, _, err := slackclient.GetSlackClient().PostMessage(ev.Channel, slack.MsgOptionText("First Bot Msg", true))
 	if err != nil {
 		log.Error.Println("Error Slack:", err)
 	}
-
 	return err, "Dummy Message From Bot"
 }
+
+// func testFunc(ev *slack.MessageEvent) {
+// 	//slackclient.GetSlackClient().PostEphemeral
+// 	var attachment = slack.Attachment{
+// 		Text:       "Which beer do you want? :beer:",
+// 		Color:      "#f9a41b",
+// 		CallbackID: "beer",
+// 		Actions: []slack.AttachmentAction{
+// 			{
+// 				Name: actionSelect,
+// 				Type: "select",
+// 				Options: []slack.AttachmentActionOption{
+// 					{
+// 						Text:  "Asahi Super Dry",
+// 						Value: "Asahi Super Dry",
+// 					},
+// 					{
+// 						Text:  "Kirin Lager Beer",
+// 						Value: "Kirin Lager Beer",
+// 					},
+// 					{
+// 						Text:  "Sapporo Black Label",
+// 						Value: "Sapporo Black Label",
+// 					},
+// 					{
+// 						Text:  "Suntory Malt’s",
+// 						Value: "Suntory Malts",
+// 					},
+// 				},
+// 			},
+// 			{
+// 				Name:  actionCancel,
+// 				Text:  "Cancel",
+// 				Type:  "button",
+// 				Style: "danger",
+// 			},
+// 		},
+// 	}
+
+// }
 
 func InitGRPCClient(userMessage string, botReply string) {
 	client, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
