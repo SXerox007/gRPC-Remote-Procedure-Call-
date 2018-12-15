@@ -68,45 +68,46 @@ func msgBotSend(ev *slack.MessageEvent) (error, string) {
 	return err, "Dummy Message From Bot"
 }
 
-// func testFunc(ev *slack.MessageEvent) {
-// 	//slackclient.GetSlackClient().PostEphemeral
-// 	var attachment = slack.Attachment{
-// 		Text:       "Which beer do you want? :beer:",
-// 		Color:      "#f9a41b",
-// 		CallbackID: "beer",
-// 		Actions: []slack.AttachmentAction{
-// 			{
-// 				Name: actionSelect,
-// 				Type: "select",
-// 				Options: []slack.AttachmentActionOption{
-// 					{
-// 						Text:  "Asahi Super Dry",
-// 						Value: "Asahi Super Dry",
-// 					},
-// 					{
-// 						Text:  "Kirin Lager Beer",
-// 						Value: "Kirin Lager Beer",
-// 					},
-// 					{
-// 						Text:  "Sapporo Black Label",
-// 						Value: "Sapporo Black Label",
-// 					},
-// 					{
-// 						Text:  "Suntory Malt’s",
-// 						Value: "Suntory Malts",
-// 					},
-// 				},
-// 			},
-// 			{
-// 				Name:  actionCancel,
-// 				Text:  "Cancel",
-// 				Type:  "button",
-// 				Style: "danger",
-// 			},
-// 		},
-// 	}
+func msgAttachment(ev *slack.MessageEvent) {
+	//slackclient.GetSlackClient().PostEphemeral
+	var attachment = slack.Attachment{
+		Text:       "Which branch you want to merger in staging?",
+		Color:      "#f9a41b",
+		CallbackID: "branch",
+		Actions: []slack.AttachmentAction{
+			{
+				Name: "actionSelect",
+				Type: "select",
+				Options: []slack.AttachmentActionOption{
+					{
+						Text:  "master",
+						Value: "master",
+					},
+					{
+						Text:  "develop",
+						Value: "develop",
+					},
+					{
+						Text:  "testing",
+						Value: "testing",
+					},
+					{
+						Text:  "Live-2.0",
+						Value: "Live-2.0",
+					},
+				},
+			},
+			{
+				Name:  "actionCancel",
+				Text:  "Cancel",
+				Type:  "button",
+				Style: "danger",
+			},
+		},
+	}
 
-// }
+	log.Info.Println("Attactchment msg smaple", attachment)
+}
 
 func InitGRPCClient(userMessage string, botReply string) {
 	client, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
