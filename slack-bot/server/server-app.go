@@ -58,7 +58,7 @@ func main() {
 func Init() {
 	logsSetup()
 	MongodbSetup()
-	//PgSetup()
+	PgSetup()
 	ServerSetup()
 }
 
@@ -66,7 +66,7 @@ func initLogs() {
 	logLevel := flag.Int("loglevel", 1, "an integer value (0-4)")
 	flag.Parse()
 	// save logs in log.txt
-	log.SetLogLevel(log.Level(*logLevel), "logs.txt")
+	log.SetLogLevel(log.Level(*logLevel), "server_logs.txt")
 	err := errors.New("Start trace Important Error")
 	//to trace the error
 	log.Info.Println(err)
