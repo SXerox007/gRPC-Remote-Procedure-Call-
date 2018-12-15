@@ -19,5 +19,5 @@ create table slack_dump (
 id uuid NOT NULL DEFAULT uuid_generate_v4() primary key,
 sender_message text not null,
 chatbot_reply text not null,
-uts timestamp default current_timestamp
+capture_time timestamp default current_timestamp
 );

@@ -5,12 +5,12 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"gRPC-Remote-Procedure-Call-/slack-bot/client/grpcclient"
 	"gRPC-Remote-Procedure-Call-/slack-bot/client/slackclient"
 	"gRPC-Remote-Procedure-Call-/slack-bot/log"
 	"gRPC-Remote-Procedure-Call-/slack-bot/proto"
 
 	"github.com/nlopes/slack"
-	"google.golang.org/grpc"
 )
 
 func initLogs() {
@@ -28,6 +28,7 @@ func main() {
 }
 
 func Init() {
+	grpcclient.InitGRPCClient()
 	initLogs()
 	slackbotReciveMsgSetup()
 }
@@ -42,22 +43,22 @@ func slackbotReciveMsgSetup() {
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
-			//if len(ev.BotID) == 0 {
-			go incomingMessages(ev)
-			//}
+			if len(ev.BotID) == 0 {
+				go incomingMessages(ev)
+			}
 		}
 	}
 }
 
 func incomingMessages(ev *slack.MessageEvent) {
 	//print the slack incoming msg
-	fmt.Println(ev)
+	//fmt.Println(ev)
 	err, msg := msgBotSend(ev)
-	if err == nil {
+	if err != nil {
 		log.Error.Fatalln("Error Slack:", err)
+	} else {
+		dumpSlackBotMsg(grpcclient.GetServiceClient(), ev.Text, msg)
 	}
-	//For now bot msg as dummy
-	InitGRPCClient(ev.Msg.Text, msg)
 }
 
 func msgBotSend(ev *slack.MessageEvent) (error, string) {
@@ -109,22 +110,12 @@ func msgAttachment(ev *slack.MessageEvent) {
 	log.Info.Println("Attactchment msg smaple", attachment)
 }
 
-func InitGRPCClient(userMessage string, botReply string) {
-	client, err := grpc.Dial("localhost:8080", grpc.WithInsecure())
-	if err != nil {
-		log.Error.Fatal("Error in connection : ", err)
-	}
-	defer client.Close()
-
-	msg := slackbot.NewSlackBotServiceClient(client)
-
-	dumpSlackBotMsg(msg, userMessage, botReply)
-}
-
 func dumpSlackBotMsg(msg slackbot.SlackBotServiceClient, userMessage string, botReply string) {
 	req := &slackbot.SlackDumpRequest{
 		QuestionFromUser: userMessage,
 		AnswerFromAi:     botReply,
+		MongodbEnable:    true,
+		PostgresEnable:   true,
 	}
 
 	res, err := msg.SlackDumpingGround(context.Background(), req)

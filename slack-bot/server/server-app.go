@@ -11,6 +11,7 @@ import (
 	"gRPC-Remote-Procedure-Call-/slack-bot/mongodb"
 	"gRPC-Remote-Procedure-Call-/slack-bot/postgres"
 	"gRPC-Remote-Procedure-Call-/slack-bot/proto"
+	pgSlackDump "gRPC-Remote-Procedure-Call-/slack-bot/table/slackdump"
 	"net/http"
 
 	"net"
@@ -30,7 +31,13 @@ type Server struct {
 *
 **/
 func (*Server) SlackDumpingGround(ctx context.Context, req *slackbot.SlackDumpRequest) (*slackbot.SlackDumpResponse, error) {
-	err := slackdump.DumpingGroundSlackbot(req)
+	var err error
+	if req.GetMongodbEnable() {
+		err = slackdump.DumpingGroundSlackbot(req)
+	}
+	if req.GetPostgresEnable() {
+		err = pgSlackDump.DumpingGroundSlackbot(req)
+	}
 
 	if err == nil {
 		return &slackbot.SlackDumpResponse{
@@ -40,7 +47,7 @@ func (*Server) SlackDumpingGround(ctx context.Context, req *slackbot.SlackDumpRe
 			},
 		}, nil
 	}
-	return nil, errors.New("Something went wrong")
+	return nil, err
 }
 
 func GetEnv() string {

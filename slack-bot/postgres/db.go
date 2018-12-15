@@ -42,7 +42,7 @@ func DBConnecting() {
 }
 
 //Example
-func sampleDataEntry(db *sql.DB) {
+func sampleDataEntry() {
 	sqlStatement := `
 	INSERT INTO users (age, email, first_name, last_name)
 	VALUES ($1, $2, $3, $4)
