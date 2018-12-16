@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+message CommonBlockResponse{
+   string hashValue = 1;
+   string prevHashValue = 2;
+   string data = 3; 
+}
+
+message CommonRequest{
+    bool isFetchAllBlocks = 1;
+}
+
+message AddBlockChainRequest{
+    string data = 1;
+}
+
+message AddBlockChainResponse{
+    string hashValue =1;
+}
+
+message GetBlockChainRequest{
+    CommonRequest commonRequest = 1;
+}
+
+message GetBlockChainResponse{
+   repeated CommonBlockResponse commonResponse = 1;
+}
+
+
+service BlockChain{
+    rpc AddBlockChain(AddBlockChainRequest) returns (AddBlockChainResponse);
+    rpc GetBlockChainData(GetBlockChainRequest) returns (GetBlockChainResponse);
+}
