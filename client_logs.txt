@@ -345,3 +345,47 @@ INFO: 2018/12/16 02:40:12 client-app.go:23: Start trace Client Important Error
 INFO: 2018/12/16 02:40:29 client-app.go:23: Start trace Client Important Error
 INFO: 2018/12/16 02:40:48 client-app.go:23: Start trace Client Important Error
 INFO: 2018/12/16 02:43:16 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:18:02 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 13:25:25 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 13:34:54 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:35:29 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:36:04 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:40:59 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:41:37 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 13:42:12 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 13:42:22 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 13:43:27 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 13:43:44 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 13:45:03 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:08:33 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 20:08:55 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+ERROR: 2018/12/16 20:09:13 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:09:54 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:10:25 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:10:34 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:10:53 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:11:09 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 20:11:20 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:16:53 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:17:02 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:20:27 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:26:03 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:30:43 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 20:30:52 client-app.go:57: Error Slack: <nil>
+INFO: 2018/12/16 20:32:17 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 20:32:23 client-app.go:57: Error Slack: <nil>
+INFO: 2018/12/16 20:34:09 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:37:45 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:40:12 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:42:14 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 20:42:38 client-app.go:23: Start trace Client Important Error
+ERROR: 2018/12/16 20:42:54 client-app.go:125: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:45:32 client-app.go:25: Start trace Client Important Error
+ERROR: 2018/12/16 20:45:36 client-app.go:138: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:47:00 client-app.go:25: Start trace Client Important Error
+ERROR: 2018/12/16 20:47:06 client-app.go:137: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:47:56 client-app.go:25: Start trace Client Important Error
+ERROR: 2018/12/16 20:48:00 client-app.go:137: Slack Message Dumping Error:  rpc error: code = Canceled desc = grpc: the client connection is closing
+INFO: 2018/12/16 20:51:08 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 21:02:02 client-app.go:23: Start trace Client Important Error
+INFO: 2018/12/16 21:13:02 client-app.go:23: Start trace Client Important Error

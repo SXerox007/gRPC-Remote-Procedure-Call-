@@ -5,7 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"gRPC-Remote-Procedure-Call-/slack-bot/client/grpcclient"
+	gc "gRPC-Remote-Procedure-Call-/slack-bot/client/grpcclient"
 	"gRPC-Remote-Procedure-Call-/slack-bot/client/slackclient"
 	"gRPC-Remote-Procedure-Call-/slack-bot/log"
 	"gRPC-Remote-Procedure-Call-/slack-bot/proto"
@@ -28,7 +28,7 @@ func main() {
 }
 
 func Init() {
-	grpcclient.InitGRPCClient()
+	gc.InitGRPCClient()
 	initLogs()
 	slackbotReciveMsgSetup()
 }
@@ -57,7 +57,7 @@ func incomingMessages(ev *slack.MessageEvent) {
 	if err != nil {
 		log.Error.Fatalln("Error Slack:", err)
 	} else {
-		dumpSlackBotMsg(grpcclient.GetServiceClient(), ev.Text, msg)
+		dumpSlackBotMsg(ev.Text, msg)
 	}
 }
 
@@ -110,7 +110,7 @@ func msgAttachment(ev *slack.MessageEvent) {
 	log.Info.Println("Attactchment msg smaple", attachment)
 }
 
-func dumpSlackBotMsg(msg slackbot.SlackBotServiceClient, userMessage string, botReply string) {
+func dumpSlackBotMsg(userMessage string, botReply string) {
 	req := &slackbot.SlackDumpRequest{
 		QuestionFromUser: userMessage,
 		AnswerFromAi:     botReply,
@@ -118,7 +118,7 @@ func dumpSlackBotMsg(msg slackbot.SlackBotServiceClient, userMessage string, bot
 		PostgresEnable:   true,
 	}
 
-	res, err := msg.SlackDumpingGround(context.Background(), req)
+	res, err := gc.GetServiceClient().SlackDumpingGround(context.Background(), req)
 	if err == nil {
 		fmt.Println("Data: ", res.GetCommonResponse())
 	} else {
