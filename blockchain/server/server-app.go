@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 
+	bc "gRPC-Remote-Procedure-Call-/blockchain/blockchain"
 	blockchain "gRPC-Remote-Procedure-Call-/blockchain/protos"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/logs"
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/mongodb"
@@ -16,14 +17,28 @@ import (
 )
 
 type Server struct {
+	BlockChain *bc.Blockchain
 }
 
-func (*Server) AddBlockChain(ctx context.Context, req *blockchain.AddBlockChainRequest) (*blockchain.AddBlockChainResponse, error) {
-
+func (s *Server) AddBlockChain(ctx context.Context, req *blockchain.AddBlockChainRequest) (*blockchain.AddBlockChainResponse, error) {
+	block := s.BlockChain.AddBlock(req.GetData())
+	return &blockchain.AddBlockChainResponse{
+		HashValue: block.Hash,
+	}, nil
 }
 
-func (*Server) GetBlockChainData(ctx context.Context, req *blockchain.GetBlockChainRequest) (*blockchain.GetBlockChainResponse, error) {
-
+func (s *Server) GetBlockChainData(ctx context.Context, req *blockchain.GetBlockChainRequest) (*blockchain.GetBlockChainResponse, error) {
+	resp := new(blockchain.GetBlockChainResponse)
+	if req.GetCommonRequest().GetIsFetchAllBlocks() {
+		for _, item := range s.BlockChain.Blocks {
+			resp.CommonResponse = append(resp.CommonResponse, &blockchain.CommonBlockResponse{
+				HashValue:     item.Hash,
+				PrevHashValue: item.PrevBlockHash,
+				Data:          item.Data,
+			})
+		}
+	}
+	return resp, nil
 }
 
 func GetEnv() string {
@@ -67,7 +82,9 @@ func ServerSetup() {
 	//Register reflection on gRPC server
 	reflection.Register(srv)
 
-	blockchain.RegisterBlockChainServer(srv, &Server{})
+	blockchain.RegisterBlockChainServer(srv, &Server{
+		BlockChain: bc.NewBlockchain(),
+	})
 
 	go func() {
 		log.Println("Starting Server: localhost:8080")
