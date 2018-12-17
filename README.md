@@ -44,11 +44,11 @@ BI-Directional API
 
 Create Update Read data form Monogo db using gRPC
 ```
-Curd API Mongodb
+Crud API Mongodb
 ```
 Create Update Read data form Postgres using gRPC
 ```
-Curd API Postgres
+Crud API Postgres
 ```
 Deadline if the response form server not coming in a particular time how to call deadline
 ```
@@ -103,5 +103,22 @@ service SlackBotService {
 }
 ```
 
+### BlockChain (gRPC) Basic Example
+## Refrence :- Alex Pliutau
+# what is Blockchain ?
+The answer is very simple it's a DS Linkedlist type not linkedlist its just same as linkedlist it just always store the previous hash/id. 
+# Use
+* IBM
+* Bitcoin
+* Samsung
+* etc Many more
+
+```
+type Block struct {
+	Data          string
+	PrevBlockHash string
+	Hash          string
+}
+```
 
 
