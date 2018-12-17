@@ -103,9 +103,9 @@ service SlackBotService {
 }
 ```
 
-### BlockChain (gRPC) Basic Example
+# BlockChain (gRPC) Basic Example
 ## Refrence :- Alex Pliutau
-# what is Blockchain ?
+### what is Blockchain ?
 The answer is very simple it's a DS Linkedlist type not linkedlist its just same as linkedlist it just always store the previous hash/id. 
 # Use
 * IBM
