@@ -76,5 +76,32 @@ ssl security in gRPC
 ssl security
 ```
 
+### Slack Bot
+Slack bot user read and send message (Basic) using gRPC. DB used postgres and Mongodb. It will dump the data in db of user message and bot response.
+
+```
+syntax = "proto3";
+
+message CommonResponse {
+    int32 code = 1;
+    string message = 2;
+}
+
+message SlackDumpRequest {
+    string question_from_user = 1;
+    string answer_from_ai =2;
+    bool mongodb_enable = 3;
+    bool postgres_enable = 4;
+}
+
+message SlackDumpResponse {
+    CommonResponse CommonResponse = 1;
+}
+
+service SlackBotService {
+    rpc SlackDumpingGround(SlackDumpRequest) returns (SlackDumpResponse);
+}
+```
+
 
 
