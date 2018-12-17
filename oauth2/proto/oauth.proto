@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package oauth;
+option go_package = "oauthpb";
+import "google/api/annotations.proto";
+
+message OAuthRequest {
+
+}
+
+message OAuthResponse {
+
+}
+
+service OAuthService {
+    rpc GetOAuthService (OAuthRequest) returns (OAuthResponse){
+        option (google.api.http) = { get: "" };
+    }
+}
