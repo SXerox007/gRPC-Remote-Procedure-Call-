@@ -56,8 +56,9 @@ Deadline
 ```
 Error Handling in gRPC its just a basic how to do
 for More :
-https://grpc.io/docs/guides/error.html
-http://avi.im/grpc-errors/
+* [gRPC Error Official](https://grpc.io/docs/guides/error.html)
+* [Another Example](http://avi.im/grpc-errors/)
+
 ```
 Error handling
 ```
