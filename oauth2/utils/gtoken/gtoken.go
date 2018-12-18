@@ -37,6 +37,7 @@ func FetchDataFromAccessToken(access_token string) ([]byte, error) {
 }
 
 func GetAccessToken(state string, code string) (*oauth2.Token, error) {
+	goauth.GoogleAuthInit()
 	if state != OAUTH_STATE {
 		return nil, fmt.Errorf("invalid oauth state")
 	}

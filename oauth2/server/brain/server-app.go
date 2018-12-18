@@ -11,6 +11,7 @@ import (
 	"gRPC-Remote-Procedure-Call-/expert/crud-api-using-mongodb/mongodb"
 
 	"gRPC-Remote-Procedure-Call-/oauth2/proto"
+	"gRPC-Remote-Procedure-Call-/oauth2/utils/gtoken"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -25,19 +26,20 @@ func (*Server) GetOAuthService(ctx context.Context, req *oauthpb.OAuthRequest) (
 }
 
 func (*Server) GetCodeState(ctx context.Context, req *oauthpb.OAuthCodeRequest) (*oauthpb.OAuthCodeResponse, error) {
-	log.Println("Code:", req.GetCode())
-	log.Println("State:", req.GetState())
-	if req.GetCode() != "" || req.GetState() != "" {
-		resp := &oauthpb.OAuthCodeResponse{
-			IsAuthcode: true,
+	token, err := gtoken.GetAccessToken(req.GetState(), req.GetCode())
+	if err == nil {
+		if gtoken.IsTokenValid(token.AccessToken) {
+			resp := &oauthpb.OAuthCodeResponse{
+				IsAuthcode: true,
+			}
+			return resp, nil
 		}
-		return resp, nil
-	} else {
-		resp := &oauthpb.OAuthCodeResponse{
-			IsAuthcode: false,
-		}
-		return resp, nil
 	}
+	log.Println("Error", err)
+	resp := &oauthpb.OAuthCodeResponse{
+		IsAuthcode: false,
+	}
+	return resp, nil
 }
 
 func GetEnv() string {

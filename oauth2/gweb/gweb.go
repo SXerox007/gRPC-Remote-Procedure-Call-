@@ -23,7 +23,7 @@ func WebApisForOAuth(temp oauthpb.OAuthServiceClient) {
 	goauth.GoogleAuthInit()
 	http.HandleFunc("/", handleMain)
 	http.HandleFunc("/auth", auth)
-	http.HandleFunc("/callback", Callback)
+	http.HandleFunc("/callback", callback)
 	log.Println(http.ListenAndServe(":7007", nil))
 }
 
@@ -38,11 +38,11 @@ func handleMain(w http.ResponseWriter, r *http.Request) {
 
 func auth(w http.ResponseWriter, r *http.Request) {
 	url := goauth.GetOAuthConfig().AuthCodeURL(gtoken.OAUTH_STATE)
-	http.Redirect(w, r, url, http.StatusTemporaryRedirect)
+	http.Redirect(w, r, url, http.StatusMovedPermanently)
 }
 
-func Callback(w http.ResponseWriter, r *http.Request) {
-	CheckOAuthCodeAndState(r.FormValue(CODE), r.FormValue(STATE))
+func callback(w http.ResponseWriter, r *http.Request) {
+	CheckOAuthCodeAndState(r.FormValue(STATE), r.FormValue(CODE))
 }
 
 func CheckOAuthCodeAndState(state string, code string) {
