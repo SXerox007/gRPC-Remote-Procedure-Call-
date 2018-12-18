@@ -2,7 +2,7 @@
 #To generate the grpc code 
 protoc oauth2/proto/oauth.proto --go_out=plugins=grpc:.
 
- #server-run
+ #brain server-run
 go run oauth2/server/brain/server-app.go
 # or 
 make server
@@ -11,6 +11,9 @@ make server
 go run oauth2/client/client-app.go
 # or 
 make client
+
+#Rest server run
+go run oauth2/server/rest/server.go
 
 
 #source the keys when run hit command

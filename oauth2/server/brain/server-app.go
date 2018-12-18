@@ -73,11 +73,11 @@ func ServerSetup() {
 	oauthpb.RegisterOAuthServiceServer(srv, &Server{})
 
 	go func() {
+		log.Println("Starting Server: localhost:8080")
 		if err := srv.Serve(listner); err != nil {
 			log.Fatal("Error in Serve the Server:", err)
 			return
 		}
-		log.Println("Starting Server: localhost:8080")
 	}()
 	//make a channnel that will wait for server to close or interrupt by control^c
 	ch := make(chan os.Signal, 1)
