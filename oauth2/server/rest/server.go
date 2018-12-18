@@ -5,16 +5,18 @@ import (
 	"log"
 	"net/http"
 
+	"gRPC-Remote-Procedure-Call-/oauth2/proto"
+
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 var (
-	echoEndpoint = flag.String("echo_endpoint", "localhost:8080", "expose endpoint of oAuth")
+	authpoint = flag.String("auth_end_points", "localhost:8080", "expose end point of oAuth")
 )
 
-func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
+func ExposePoint(address string, opts ...runtime.ServeMuxOption) error {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
@@ -22,7 +24,7 @@ func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
 	mux := runtime.NewServeMux(opts...)
 	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
 
-	err := pb.RegisterEchoServiceHandlerFromEndpoint(ctx, mux, *echoEndpoint, dialOpts)
+	err := oauthpb.RegisterOAuthServiceHandlerFromEndpoint(ctx, mux, *authpoint, dialOpts)
 	if err != nil {
 		return err
 	}
@@ -31,9 +33,8 @@ func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
 }
 
 func main() {
-	//flag.Parse()
-
-	if err := RunEndPoint(":5051"); err != nil {
+	flag.Parse()
+	if err := ExposePoint(":5051"); err != nil {
 		log.Fatal("Error", err)
 	}
 }
