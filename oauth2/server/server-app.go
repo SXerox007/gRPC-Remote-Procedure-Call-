@@ -21,6 +21,7 @@ type Server struct {
 
 func (*Server) GetOAuthService(ctx context.Context, res *oauthpb.OAuthRequest) (*oauthpb.OAuthResponse, error) {
 
+	return nil, nil
 }
 
 func GetEnv() string {
@@ -50,7 +51,6 @@ func dbSetup() {
 		log.Fatal("Can't connect to mongoDB: ", err)
 		return
 	}
-
 }
 
 func ServerSetup() {

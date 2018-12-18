@@ -14,7 +14,7 @@ make client
 
 
 #source the keys when run hit command
-source slack-bot/secure-keys/keys
+source oauth2/secure-keys/keys
 
 
 go get golang.org/x/oauth2
