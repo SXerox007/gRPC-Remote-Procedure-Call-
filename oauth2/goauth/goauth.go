@@ -15,7 +15,7 @@ var googleOauthConfig *oauth2.Config
 
 func GoogleAuthInit() {
 	googleOauthConfig = &oauth2.Config{
-		RedirectURL:  "",
+		RedirectURL:  "http://localhost:7007/callback",
 		ClientID:     os.Getenv("OAUTH_GOOGLE_CLIENT_ID"),
 		ClientSecret: os.Getenv("OAUTH_CLIENT_SECRET"),
 		Scopes:       []string{GOOGLE_AUTH},

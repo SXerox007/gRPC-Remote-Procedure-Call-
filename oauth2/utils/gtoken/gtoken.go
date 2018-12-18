@@ -1,4 +1,4 @@
-package gtokenverifier
+package gtoken
 
 import (
 	"fmt"

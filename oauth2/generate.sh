@@ -33,3 +33,8 @@ protoc -I/usr/local/include -I. -I$GOPATH/src -I$GOPATH/src/github.com/grpc-ecos
 
 
 protoc -I /usr/local/include -I. -I $GOPATH/src -I $GOPATH/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis --grpc-gateway_out=logtostderr=true:. oauth2/proto/oauth.proto
+
+
+
+#curl API Expose in Port 5051
+curl -X POST "http://localhost:5051/v1/oauth/10001/true"

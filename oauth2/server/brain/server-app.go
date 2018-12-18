@@ -27,7 +27,17 @@ func (*Server) GetOAuthService(ctx context.Context, req *oauthpb.OAuthRequest) (
 func (*Server) GetCodeState(ctx context.Context, req *oauthpb.OAuthCodeRequest) (*oauthpb.OAuthCodeResponse, error) {
 	log.Println("Code:", req.GetCode())
 	log.Println("State:", req.GetState())
-	return nil, nil
+	if req.GetCode() != "" || req.GetState() != "" {
+		resp := &oauthpb.OAuthCodeResponse{
+			IsAuthcode: true,
+		}
+		return resp, nil
+	} else {
+		resp := &oauthpb.OAuthCodeResponse{
+			IsAuthcode: false,
+		}
+		return resp, nil
+	}
 }
 
 func GetEnv() string {

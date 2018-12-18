@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gRPC-Remote-Procedure-Call-/oauth2/gweb"
 	"gRPC-Remote-Procedure-Call-/oauth2/proto"
 
 	"log"
@@ -26,4 +27,6 @@ func ClientSetup() {
 	msg := oauthpb.NewOAuthServiceClient(client)
 
 	log.Println("Final Data ", msg)
+
+	gweb.WebApisForOAuth(msg)
 }

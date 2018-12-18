@@ -29,7 +29,6 @@ func ExposePoint(address string, opts ...runtime.ServeMuxOption) error {
 		return err
 	}
 	log.Println("Starting Endpoint Exposed Server: localhost:5051")
-
 	http.ListenAndServe(address, mux)
 	return nil
 }
@@ -40,6 +39,6 @@ func main() {
 
 func Init() {
 	if err := ExposePoint(":5051"); err != nil {
-		log.Fatal("Error", err)
+		log.Fatal("Error in serve", err)
 	}
 }
