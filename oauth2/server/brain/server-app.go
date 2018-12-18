@@ -19,8 +19,14 @@ import (
 type Server struct {
 }
 
-func (*Server) GetOAuthService(ctx context.Context, res *oauthpb.OAuthRequest) (*oauthpb.OAuthResponse, error) {
+func (*Server) GetOAuthService(ctx context.Context, req *oauthpb.OAuthRequest) (*oauthpb.OAuthResponse, error) {
+	log.Println("AccessToken:", req.GoogleAccessToken)
+	return nil, nil
+}
 
+func (*Server) GetCodeState(ctx context.Context, req *oauthpb.OAuthCodeRequest) (*oauthpb.OAuthCodeResponse, error) {
+	log.Println("Code:", req.GetCode())
+	log.Println("State:", req.GetState())
 	return nil, nil
 }
 
@@ -67,11 +73,11 @@ func ServerSetup() {
 	oauthpb.RegisterOAuthServiceServer(srv, &Server{})
 
 	go func() {
-		log.Println("Starting Server: localhost:8080")
 		if err := srv.Serve(listner); err != nil {
 			log.Fatal("Error in Serve the Server:", err)
 			return
 		}
+		log.Println("Starting Server: localhost:8080")
 	}()
 	//make a channnel that will wait for server to close or interrupt by control^c
 	ch := make(chan os.Signal, 1)
