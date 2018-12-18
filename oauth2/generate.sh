@@ -9,9 +9,12 @@ make server
 
 #client-run
 go run oauth2/client/client-app.go
-//# or 
+# or 
 make client
 
 
-//#source the keys when run hit command
+#source the keys when run hit command
 source slack-bot/secure-keys/keys
+
+
+go get golang.org/x/oauth2
