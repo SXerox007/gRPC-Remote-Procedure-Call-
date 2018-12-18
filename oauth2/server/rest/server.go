@@ -1,0 +1,39 @@
+package main
+
+import (
+	"flag"
+	"log"
+	"net/http"
+
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+)
+
+var (
+	echoEndpoint = flag.String("echo_endpoint", "localhost:8080", "expose endpoint of oAuth")
+)
+
+func RunEndPoint(address string, opts ...runtime.ServeMuxOption) error {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	mux := runtime.NewServeMux(opts...)
+	dialOpts := []grpc.DialOption{grpc.WithInsecure()}
+
+	err := pb.RegisterEchoServiceHandlerFromEndpoint(ctx, mux, *echoEndpoint, dialOpts)
+	if err != nil {
+		return err
+	}
+	http.ListenAndServe(address, mux)
+	return nil
+}
+
+func main() {
+	//flag.Parse()
+
+	if err := RunEndPoint(":5051"); err != nil {
+		log.Fatal("Error", err)
+	}
+}
