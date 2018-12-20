@@ -1,5 +1,6 @@
 package com.languagecombat.sumitthakur.languagecombat;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.StatusRuntimeException;
+import io.grpc.netty.NettyChannelBuilder;
 import login.Login;
 import login.LoginServiceGrpc;
 
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 //
 
 
+    @SuppressLint("StaticFieldLeak")
     private class GrpcTask extends AsyncTask<Void, Void, String> {
 
         private ManagedChannel mChannel;
@@ -98,16 +101,19 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Log.e("Step 1","start");
                 mChannel = ManagedChannelBuilder
-                        .forAddress("localhost", 50051)
+                        .forAddress("localhost", 5051)
                         .usePlaintext()
                         .build();
+                Log.e("Is Shutdown", String.valueOf(mChannel.isShutdown()));
                 Log.e("Step 2",mChannel.toString());
+
                 LoginServiceGrpc.LoginServiceBlockingStub stub =
                         LoginServiceGrpc.newBlockingStub(mChannel);
                 Log.e("Step 3",stub.toString());
-                Login.LoginRequestData data = Login.LoginRequestData.newBuilder().setEmailOrPhone("blackdream@gmail.com").setPassword("12345678").build();
+                Login.LoginRequestData data = Login.LoginRequestData.newBuilder().setEmailOrPhone("sumit@gmail.com").setPassword("12345678").build();
                 Login.LoginRequest req = Login.LoginRequest.newBuilder().setLoginRequestData(data).build();
                 Log.e("Step 4",req.toString());
+
                 Login.LoginResponse resp = stub.login(req);
                 Log.e("Step 5",resp.toString());
                 return resp.getLoginResponseData().getSuccess();

@@ -44,7 +44,7 @@ func ServerSetup() {
 	// }
 	srv := CreateNewgRPCServer()
 	login.RegisterLoginServiceServer(srv, &Server{})
-	log.Println("Server Start:", "localhost:50051")
+	log.Println("Server Start:", "localhost:5051")
 	if err := srv.Serve(listner); err != nil {
 		log.Fatal("Error in Serve the Server:", err)
 		return

@@ -2,7 +2,7 @@
 
 buildscript {
 
-    ext.protobufVersion = '0.8.3'
+    ext.protobufVersion = '0.8.5'
 
     repositories {
         google()

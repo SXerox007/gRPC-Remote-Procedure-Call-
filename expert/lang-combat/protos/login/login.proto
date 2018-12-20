@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package login;
+
 message LoginRequestData {
     string EmailOrPhone = 1;
     string Password = 2;

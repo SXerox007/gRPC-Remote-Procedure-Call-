@@ -18,7 +18,7 @@ func Init() {
 }
 
 func ClientSetup() {
-	client, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
+	client, err := grpc.Dial("localhost:5051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatal("Error in connection : ", err)
 	}
