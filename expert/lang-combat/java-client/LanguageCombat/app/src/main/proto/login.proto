@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package login;
+
+message LoginRequestData {
+    string EmailOrPhone = 1;
+    string Password = 2;
+}
+
+message LoginResponseData {
+    string Success = 1;
+    int32 Status = 2;
+}
+
+message LoginRequest {
+    LoginRequestData loginRequestData = 1;
+}
+
+message LoginResponse {
+    LoginResponseData loginResponseData = 1;
+}
+
+service LoginService{
+    rpc Login(LoginRequest) returns (LoginResponse){};
+}

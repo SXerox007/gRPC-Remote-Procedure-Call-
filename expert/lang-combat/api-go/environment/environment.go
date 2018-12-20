@@ -15,7 +15,7 @@ func GetEnv() string {
 func GetPort() string {
 	port, isPort := os.LookupEnv("port")
 	if !isPort {
-		port = ":8080"
+		port = ":50051"
 	}
 	return port
 }

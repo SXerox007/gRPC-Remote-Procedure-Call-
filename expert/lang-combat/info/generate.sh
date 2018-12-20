@@ -4,7 +4,9 @@ protoc expert/lang-combat/api-proto/protos/login-proto/login.proto --go_out=plug
 protoc -I expert/ --go_out=expert/ expert/lang-combat/api-proto/protos/login-proto/login.proto
 
 
-go run expert/lang-combat/server/app.go
+go run expert/lang-combat/api-go/myapplication.go
+
+go run expert/lang-combat/go-client/client.go
 
 #generate the ssl sercurity files 
 # Summary 
