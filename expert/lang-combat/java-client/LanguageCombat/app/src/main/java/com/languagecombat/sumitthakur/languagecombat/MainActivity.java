@@ -4,15 +4,14 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import io.grpc.StatusRuntimeException;
-import io.grpc.netty.NettyChannelBuilder;
+
+import io.grpc.okhttp.OkHttpChannelBuilder;
 import login.Login;
 import login.LoginServiceGrpc;
 
@@ -26,9 +25,35 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        new GrpcTask().execute();
-
+        //new GrpcTask().execute();
+        languageCombat();
     }
+
+    private void languageCombat() {
+        //in host your public IP
+        ManagedChannel channel = OkHttpChannelBuilder.forAddress("192.168.0.106", 50051)
+                .usePlaintext()
+                .build();
+        connectionCall(channel);
+    }
+
+    private void connectionCall(ManagedChannel channel) {
+        LoginServiceGrpc.LoginServiceBlockingStub loginClient = LoginServiceGrpc.newBlockingStub(channel);
+
+        Login.LoginRequestData data = Login.LoginRequestData.newBuilder()
+                .setEmailOrPhone("sumit@gmail.com")
+                .setPassword("12345678")
+                .build();
+
+        Login.LoginRequest req = Login.LoginRequest.newBuilder().
+                setLoginRequestData(data)
+                .build();
+        Log.e("Data Request",req.toString());
+        Login.LoginResponse resp = loginClient.login(req);
+
+        Log.e("Whole data:",resp.toString());
+    }
+
 
 //   MainActivity(){}
 //
@@ -100,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
             try {
                 Log.e("Step 1","start");
-                mChannel = ManagedChannelBuilder
+                mChannel = OkHttpChannelBuilder
                         .forAddress("localhost", 5051)
                         .usePlaintext()
                         .build();
@@ -113,12 +138,12 @@ public class MainActivity extends AppCompatActivity {
                 Login.LoginRequestData data = Login.LoginRequestData.newBuilder().setEmailOrPhone("sumit@gmail.com").setPassword("12345678").build();
                 Login.LoginRequest req = Login.LoginRequest.newBuilder().setLoginRequestData(data).build();
                 Log.e("Step 4",req.toString());
-
+                Log.e("Is Shutdown", String.valueOf(mChannel.isShutdown()));
                 Login.LoginResponse resp = stub.login(req);
                 Log.e("Step 5",resp.toString());
                 return resp.getLoginResponseData().getSuccess();
             } catch (Exception e) {
-                Log.d("Channel:", String.valueOf(mChannel.isShutdown()));
+                Log.e("Is Shutdown", String.valueOf(mChannel.isShutdown()));
                 Log.e("Some Error occured",e.toString());
                 return "Error";
             }

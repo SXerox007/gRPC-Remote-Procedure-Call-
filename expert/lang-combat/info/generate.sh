@@ -1,7 +1,11 @@
 protoc expert/lang-combat/api-proto/myapplication.proto --go_out=plugins=grpc:.
 protoc expert/lang-combat/api-proto/protos/login-proto/login.proto --go_out=plugins=grpc:.
 
+protoc expert/lang-combat/protos/login.proto --go_out=plugins=grpc:.
+
 protoc -I expert/ --go_out=expert/ expert/lang-combat/api-proto/protos/login-proto/login.proto
+
+protoc -I expert/ --go_out=expert/ expert/lang-combat/protos/login/login.proto
 
 
 go run expert/lang-combat/api-go/myapplication.go

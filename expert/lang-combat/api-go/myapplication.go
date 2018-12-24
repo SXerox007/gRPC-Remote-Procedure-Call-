@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"gRPC-Remote-Procedure-Call-/expert/lang-combat/api-go/environment"
 	"gRPC-Remote-Procedure-Call-/expert/lang-combat/protos/login"
 	"log"
 	"net"
@@ -32,7 +31,7 @@ func Init() {
 }
 
 func ServerSetup() {
-	listner, err := net.Listen(environment.GetEnv(), environment.GetPort())
+	listner, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		log.Fatal("Error in server listen: ", err)
 		return
@@ -44,7 +43,7 @@ func ServerSetup() {
 	// }
 	srv := CreateNewgRPCServer()
 	login.RegisterLoginServiceServer(srv, &Server{})
-	log.Println("Server Start:", "localhost:5051")
+	log.Println("Server Start:", "localhost:50051")
 	if err := srv.Serve(listner); err != nil {
 		log.Fatal("Error in Serve the Server:", err)
 		return

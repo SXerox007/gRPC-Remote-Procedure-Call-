@@ -7,7 +7,7 @@ import (
 func GetEnv() string {
 	env, isEnv := os.LookupEnv("environment")
 	if !isEnv {
-		env = "tcp"
+		env = "localhost"
 	}
 	return env
 }
@@ -15,7 +15,7 @@ func GetEnv() string {
 func GetPort() string {
 	port, isPort := os.LookupEnv("port")
 	if !isPort {
-		port = ":5051"
+		port = ":50051"
 	}
 	return port
 }
