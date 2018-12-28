@@ -70,7 +70,6 @@ func GetDataFromInformatica(accessToken bool, email string) ([]*Informatica, err
 			}
 			items = append(items, &item)
 		}
-
 		return items, nil
 	}
 	return nil, status.Errorf(

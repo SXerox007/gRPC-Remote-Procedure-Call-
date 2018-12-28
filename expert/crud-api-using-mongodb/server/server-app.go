@@ -74,7 +74,6 @@ func (*Server) UpdateInformatica(ctx context.Context, req *informaticapb.UpdateI
 		}, nil
 	}
 	return nil, err
-
 }
 
 //delete the informatica data
