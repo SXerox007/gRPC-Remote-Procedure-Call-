@@ -75,7 +75,7 @@ ssl security in gRPC
 ```
 ssl security
 ```
-Add Image upload using gRPC (Chunk the file and send to backend)
+### Add Image upload using gRPC (Chunk the file and send to backend)
 ### why we send file to small chunks?
 The answer is gRPC encode and decode the data when send and recive it take less time if we send data in the form of small packet 
 ### proto file
