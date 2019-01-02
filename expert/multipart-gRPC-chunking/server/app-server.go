@@ -17,6 +17,7 @@ func (*Server) UploadFileService(stream uploadpb.UploadService_UploadFileService
 	var result []byte
 	for {
 		data, err := stream.Recv()
+		log.Println("Data Chunk:", data.GetFileChunk())
 		if err == io.EOF {
 			//finish upload chunk file
 			return stream.SendAndClose(&uploadpb.UploadResponse{

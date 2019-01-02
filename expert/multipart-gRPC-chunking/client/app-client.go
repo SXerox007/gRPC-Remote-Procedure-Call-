@@ -13,6 +13,7 @@ import (
 
 const (
 	C_SIZE = 64 * 1024 // 64 KiB
+	//	C_SIZE = 4 * 4 // For test the chunk or use image larger than 64kb
 )
 
 func main() {
@@ -62,6 +63,7 @@ func UploadFileStream(stream uploadpb.UploadService_UploadFileServiceClient) {
 			log.Fatalln("Error in send:", err)
 
 		}
+		//remove this line this will only for demo purpose
 		time.Sleep(2000 * time.Millisecond)
 	}
 
