@@ -35,6 +35,7 @@ func (*Server) UploadFileService(stream uploadpb.UploadService_UploadFileService
 		result = append(result, data.GetFileChunk()...)
 	}
 	log.Println("Image byte:", result)
+	return nil
 }
 
 func GetEnv() string {
