@@ -14,9 +14,9 @@ type Server struct {
 }
 
 func (*Server) UploadFileService(stream uploadpb.UploadService_UploadFileServiceServer) error {
-	//result := "Get Chunk: "
+	var result []byte
 	for {
-		_, err := stream.Recv()
+		data, err := stream.Recv()
 		if err == io.EOF {
 			//finish upload chunk file
 			return stream.SendAndClose(&uploadpb.UploadResponse{
@@ -32,7 +32,9 @@ func (*Server) UploadFileService(stream uploadpb.UploadService_UploadFileService
 		//print client streaming data
 		//log.Println("Client Streaming Data:", req.GetReqLoad().GetAdd())
 		//result += "Make Result" + fmt.Sprint(req.GetReqLoad().GetAdd())
+		result = append(result, data.GetFileChunk()...)
 	}
+	log.Println("Image byte:", result)
 }
 
 func GetEnv() string {

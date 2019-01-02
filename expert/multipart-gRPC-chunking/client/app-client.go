@@ -2,12 +2,17 @@ package main
 
 import (
 	"context"
+	"io/ioutil"
 	"log"
 	"time"
 
 	"gRPC-Remote-Procedure-Call-/expert/multipart-gRPC-chunking/proto"
 
 	"google.golang.org/grpc"
+)
+
+const (
+	C_SIZE = 64 * 1024 // 64 KiB
 )
 
 func main() {
@@ -43,14 +48,20 @@ func UploadFileStream(stream uploadpb.UploadService_UploadFileServiceClient) {
 	//convert image into small pices of chunk
 	image, err := ioutil.ReadFile("expert/multipart-gRPC-chunking/sample-image/test.jpg")
 	if err != nil {
-		log.Fatalln("Error While Reading the file:",err)
+		log.Fatalln("Error While Reading the file:", err)
 	}
+	log.Println("Whole Image bytes:", image)
+	req := &uploadpb.UploadChunkRequest{}
+	for start := 0; start < len(image); start += C_SIZE {
+		if start+C_SIZE > len(image) {
+			req.FileChunk = image[start:len(image)]
+		} else {
+			req.FileChunk = image[start : start+C_SIZE]
+		}
+		if err := stream.Send(req); err != nil {
+			log.Fatalln("Error in send:", err)
 
-	req := 
-
-	for _, item := range req {
-		log.Println("Stream Data")
-		stream.Send(item)
+		}
 		time.Sleep(2000 * time.Millisecond)
 	}
 
