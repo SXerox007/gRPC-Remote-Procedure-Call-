@@ -211,7 +211,7 @@ protoc -I /usr/local/include -I. -I $GOPATH/src -I $GOPATH/src/github.com/grpc-e
 curl -X POST "http://localhost:5051/v1/oauth/10001/true"
 ```
 
-## Contact if any problem:
+## Need Help:
 Email: sumitthakur769@gmail.com
 
 
