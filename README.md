@@ -75,6 +75,43 @@ ssl security in gRPC
 ```
 ssl security
 ```
+### Add Image upload using gRPC (Chunk the file and send to backend)
+### why we send file to small chunks?
+The answer is gRPC encode and decode the data when send and recive it take less time if we send data in the form of small packet 
+### proto file
+```
+syntax = "proto3";
+
+package uploadpb;
+
+message UploadChunkRequest{
+    bytes file_chunk = 1;
+}
+
+message UploadResponse{
+    string message = 1;
+    int32 code = 2;
+}
+
+service UploadService{
+    rpc UploadFileService (stream UploadChunkRequest) returns (UploadResponse){};
+}
+```
+### Logic 
+```
+C_SIZE = 64*64
+req := &uploadpb.UploadChunkRequest{}
+	for start := 0; start < len(image); start += C_SIZE {
+		if start+C_SIZE > len(image) {
+			req.FileChunk = image[start:len(image)]
+		} else {
+			req.FileChunk = image[start : start+C_SIZE]
+		}
+		if err := stream.Send(req); err != nil {
+			log.Fatalln("Error in send:", err)
+
+		}
+```
 
 # Slack Bot
 Slack bot user read and send message (Basic) using gRPC. DB used postgres and Mongodb. It will dump the data in db of user message and bot response.
@@ -174,7 +211,8 @@ protoc -I /usr/local/include -I. -I $GOPATH/src -I $GOPATH/src/github.com/grpc-e
 curl -X POST "http://localhost:5051/v1/oauth/10001/true"
 ```
 
-
+## Need Help:
+Email: sumitthakur769@gmail.com
 
 
 
