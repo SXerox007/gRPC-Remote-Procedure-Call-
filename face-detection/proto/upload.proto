@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package uploadpb;
+
+message UploadChunkRequest{
+    bytes file_chunk = 1;
+}
+
+message UploadResponse{
+    string message = 1;
+    int32 code = 2;
+}
+
+service UploadService{
+    rpc UploadFileService (stream UploadChunkRequest) returns (UploadResponse){};
+}

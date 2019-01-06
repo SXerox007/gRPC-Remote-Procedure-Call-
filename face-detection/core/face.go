@@ -1,4 +1,4 @@
-package main
+package core
 
 import (
 	"fmt"
@@ -9,12 +9,12 @@ import (
 
 const dataDir = "face-detection/algorithm-face/dlib-model"
 
-func main() {
-	fmt.Println("Facial Recognition System v0.01")
+func FaceDetection(image []byte) error {
 
 	rec, err := face.NewRecognizer(dataDir)
 	if err != nil {
-		log.Fatalln("Cannot initialize recognizer", err)
+		log.Println("Cannot initialize recognizer", err)
+		return err
 	}
 	defer rec.Close()
 
@@ -24,7 +24,8 @@ func main() {
 
 	faces, err := rec.RecognizeFile(dataImage)
 	if err != nil {
-		log.Fatalf("Can't recognize: %v", err)
+		log.Println("Can't recognize: %v", err)
+		return err
 	}
 	fmt.Println("Number of Faces in Image: ", len(faces))
 
@@ -43,19 +44,18 @@ func main() {
 	rec.SetSamples(samples, totalF)
 
 	// Now let's try to classify some not yet known image.
-	testSumit := filepath.Join(dataDir, "sumit.jpg")
-	sumit, err := rec.RecognizeSingleFile(testSumit)
+
+	sumit, err := rec.RecognizeSingle(image)
 	if err != nil {
-		log.Fatalf("Can't recognize: %v", err)
+		log.Println("Can't recognize: %v", err)
+		return err
 	}
 	if sumit == nil {
-		log.Fatalf("Not a single face on the image")
-	}
-	id := rec.Classify(sumit.Descriptor)
-	if id < 0 {
-		log.Fatalf("Can't classify")
+		log.Panicln("Not a single face on the image")
+		return err
 	}
 
-	fmt.Println("Face Recorganize", id)
+	fmt.Println("Face Recorganize")
 
+	return nil
 }
