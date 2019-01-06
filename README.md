@@ -212,7 +212,7 @@ curl -X POST "http://localhost:5051/v1/oauth/10001/true"
 ```
 
 # Face-Detection in gRPC using dlib that is in C++
-##  upload proto 
+##  Upload Proto 
 ```
 syntax = "proto3";
 
