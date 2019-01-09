@@ -5,6 +5,11 @@ import (
 	"crypto/md5"
 	"crypto/sha1"
 	"encoding/hex"
+	"io"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	"strconv"
 )
 
 func GetMd5String(s string) string {
@@ -38,4 +43,34 @@ func HmacSha1ToString(k, v string) string {
 	mac := hmac.New(sha1.New, key)
 	mac.Write([]byte(k))
 	return hex.EncodeToString(mac.Sum(nil))
+}
+
+func GetRootDir() string {
+	file, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		file = "."
+	}
+	return file
+}
+
+func WritePidToFile(filename string) error {
+	return ioutil.WriteFile(GetRootDir()+"/var/"+filename+".pid", []byte(strconv.Itoa(os.Getpid())), 0666)
+}
+
+func RemovePidFile(filename string) error {
+	return os.Remove(GetRootDir() + "/var/" + filename + ".pid")
+}
+
+func GetFileMd5(picPath string) (string, error) {
+
+	file, err := os.Open(picPath)
+	if err != nil {
+		return "", err
+	}
+	md5h := md5.New()
+	_, err = io.Copy(md5h, file)
+	if err != nil {
+		return "", err
+	}
+	return hex.EncodeToString(md5h.Sum(nil)), nil
 }
