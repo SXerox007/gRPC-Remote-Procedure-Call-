@@ -2,7 +2,6 @@ package common
 
 import "time"
 
-// MySQLConfig 数据库配置
 type MySQLConfig struct {
 	Debug        bool
 	Address      string
@@ -16,7 +15,6 @@ type MySQLConfig struct {
 	PingInterval time.Duration
 }
 
-// Init 初始化数据库配置
 func (db *MySQLConfig) Init() {
 	if db.Address == "" {
 		db.Address = "localhost"
