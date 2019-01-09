@@ -211,6 +211,99 @@ protoc -I /usr/local/include -I. -I $GOPATH/src -I $GOPATH/src/github.com/grpc-e
 curl -X POST "http://localhost:5051/v1/oauth/10001/true"
 ```
 
+# Face-Detection in gRPC using dlib (C++)
+##  Upload Proto 
+```
+syntax = "proto3";
+
+package uploadpb;
+
+message UploadChunkRequest{
+    bytes file_chunk = 1;
+}
+
+message UploadResponse{
+    string message = 1;
+    int32 code = 2;
+}
+
+service UploadService{
+    rpc UploadFileService (stream UploadChunkRequest) returns (UploadResponse){};
+}
+```
+
+## Client Streaming
+### Image send in the form of small packets coz large image takes long time to send in client and server side 
+## Why ?
+It takes time coz gRPC encrept and decrept the data when send and recieve if we send small packages it will take less amount of time
+
+https://jbrandhorst.com/post/grpc-binary-blob-stream/
+
+```
+// #server-run
+go run face-detection/server/app-server.go
+or 
+make server
+
+// #client-run
+go run face-detection/client/app-client.go
+or 
+make client
+```
+
+
+## Face Detection code
+
+```
+	rec, err := face.NewRecognizer(dataDir)
+	if err != nil {
+		log.Println("Cannot initialize recognizer", err)
+		return err
+	}
+	defer rec.Close()
+	
+	dataImage := filepath.Join(dataDir, "sumit.jpg")
+
+	faces, err := rec.RecognizeFile(dataImage)
+	if err != nil {
+		log.Println("Can't recognize: %v", err)
+		return err
+	}
+
+	// Pass samples to the recognizer.
+	rec.SetSamples(samples, totalF)
+
+	sumit, err := rec.RecognizeSingle(image)
+	if err != nil {
+		log.Println("Can't recognize: %v", err)
+		return err
+	}
+	if sumit == nil {
+		log.Panicln("Not a single face on the image")
+		return err
+	}
+
+	fmt.Println("Face Recorganize")
+
+```
+
+## How to run 
+
+```
+// #server-run
+go run face-detection/server/app-server.go
+or 
+make server
+
+// #client-run
+go run face-detection/client/app-client.go
+or 
+make client
+
+```
+ 
+ 
+
 ## Need Help:
 Email: sumitthakur769@gmail.com
 
