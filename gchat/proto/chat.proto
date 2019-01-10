@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package gChat;
+
+import "google/protobuf/timestamp.proto";
+
+message Group{
+    string group_id  = 1;
+    string group_name = 2;
+}
+
+message TextMessage{
+    string message = 1;
+}
+
+message FileMessage{
+    TextMessage  message = 1;
+    bytes file_chunk = 2;
+}
+
+message CommonResponse{
+    string message  = 1;
+    int32 code = 2;
+}
+
+message CreateGroup{
+    string group_name = 1;
+    bool isPublic = 2;
+}
+
+message GroupInfo {
+    string client = 1;
+    string groupName = 2;
+}
+
+message GroupList {
+    repeated Group groups = 1;
+}
+
+message User {
+    string user_id = 1;
+    string user_name = 2;
+}
+
+message UserList {
+    repeated User users = 2;
+}
+
+message CommonRequest{
+    string access_token  = 1;
+}
+
+message ChatMessage{
+    string senderid = 1;
+    oneof message_user{
+        TextMessage message = 2;
+        FileMessage file_message = 3;
+    }
+    string sender_name = 4;
+    bool isGroupMessage = 5;
+    oneof message_group {
+    string single_message = 6;
+    Group group = 7;
+    }
+    google.protobuf.Timestamp creation_time = 8;
+	google.protobuf.Timestamp delivery_time = 9;
+}
+
+service ChatRoom {
+    rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+    rpc CreateGroups(CreateGroup) returns (CommonResponse);
+    rpc JoinGroup(Group) returns (CommonResponse);
+    rpc GetGroupList(CommonRequest) returns (GroupList);
+    rpc GetGroupUserList(Group) returns (UserList);
+    rpc GetUsersList(CommonRequest) returns (UserList);
+    rpc LeaveGroup(Group) returns (CommonResponse);
+}

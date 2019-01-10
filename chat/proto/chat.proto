@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package goChat;
+
+service Chat {
+    rpc RouteChat(stream ChatMessage) returns (stream ChatMessage) {}
+
+    rpc UnRegister(ClientInfo) returns (Empty) {}
+
+    rpc Register(ClientInfo) returns (Empty) {}
+
+    rpc CreateGroup(GroupInfo) returns (Empty) {}
+
+    rpc JoinGroup(GroupInfo) returns (Empty) {}
+
+    rpc GetGroupList(Empty) returns (GroupList) {}
+
+    rpc GetGroupClientList(GroupInfo) returns (ClientList) {}
+
+    rpc GetClientList(Empty) returns (ClientList) {}
+
+    rpc LeaveRoom(GroupInfo) returns (Empty) {}
+}
+
+message Empty {
+
+}
+
+message ChatMessage {
+    string sender = 1;
+    string receiver = 2;
+    string message = 3;
+}
+
+message ClientInfo {
+    string sender = 1;
+}
+
+message GroupInfo {
+    string client = 1;
+    string groupName = 2;
+}
+
+message GroupList {
+    repeated string groups = 1;
+}
+
+message ClientList {
+    repeated string clients = 1;
+}
