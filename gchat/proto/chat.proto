@@ -35,6 +35,9 @@ message GroupInfo {
 
 message GroupList {
     repeated Group groups = 1;
+    string conversation_id = 2;
+    int32 total = 3;
+    CommonResponse common_response = 4;
 }
 
 message User {
@@ -43,7 +46,10 @@ message User {
 }
 
 message UserList {
-    repeated User users = 2;
+    repeated User users = 1;
+    string conversation_id = 2;
+    int32 total = 3;
+    CommonResponse common_response = 4;
 }
 
 message CommonRequest{
@@ -66,12 +72,35 @@ message ChatMessage{
 	google.protobuf.Timestamp delivery_time = 9;
 }
 
+message AddMember{
+    User userInfo = 1;
+}
+
+message KickMember{
+    User userInfo = 1;
+}
+
+message ReadHistoryRequest {
+	int32 limit = 1;
+	int32 offset = 2;
+    string conversation_id = 3;
+}
+
+message ReadHistoryResponse {
+    repeated ChatMessage messages = 1;
+    CommonResponse common_response = 2;
+}
+
 service ChatRoom {
     rpc Chat(stream ChatMessage) returns (stream ChatMessage);
     rpc CreateGroups(CreateGroup) returns (CommonResponse);
     rpc JoinGroup(Group) returns (CommonResponse);
+    rpc DeleteGroup(Group) returns (CommonResponse);
     rpc GetGroupList(CommonRequest) returns (GroupList);
     rpc GetGroupUserList(Group) returns (UserList);
     rpc GetUsersList(CommonRequest) returns (UserList);
+    rpc AddUserInGroup(AddMember) returns (CommonResponse);
+    rpc KickoutUserFromGroup(KickMember) returns (CommonResponse);
+    rpc GetChatHistory(ReadHistoryRequest) returns (ReadHistoryResponse);
     rpc LeaveGroup(Group) returns (CommonResponse);
 }

@@ -396,8 +396,9 @@ func ListenToClient(stream pb.Chat_RouteChatServer, messages chan<- pb.ChatMessa
 	for {
 		msg, err := stream.Recv()
 		if err == io.EOF {
-		}
-		if err != nil {
+			log.Println("End of file")
+		} else if err != nil {
+			log.Println("Error:", err)
 		} else {
 			log.Printf("[ListenToClient] Client " + msg.Sender + " sent " + msg.Receiver + " a message: " + msg.Message)
 			messages <- *msg
