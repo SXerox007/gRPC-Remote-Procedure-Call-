@@ -392,7 +392,6 @@ func Broadcast(gName string, msg pb.ChatMessage) {
 // ListenToClient listens on the incoming stream for any messages. It adds those messages to the channel.
 // It doesn't return anything.
 func ListenToClient(stream pb.Chat_RouteChatServer, messages chan<- pb.ChatMessage) {
-
 	for {
 		msg, err := stream.Recv()
 		if err == io.EOF {
@@ -403,7 +402,6 @@ func ListenToClient(stream pb.Chat_RouteChatServer, messages chan<- pb.ChatMessa
 			log.Printf("[ListenToClient] Client " + msg.Sender + " sent " + msg.Receiver + " a message: " + msg.Message)
 			messages <- *msg
 		}
-
 	}
 }
 

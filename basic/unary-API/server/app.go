@@ -20,7 +20,7 @@ func (*Server) SearchContact(ctx context.Context, req *search.SearchRequest) (*s
 	// phone := req.GetPhoneNumber()
 	response := &search.SearchResponse{
 		PhoneNumber: req.GetPhoneNumber(),
-		Message:     "Success",
+		Message:     "success",
 	}
 
 	return response, nil

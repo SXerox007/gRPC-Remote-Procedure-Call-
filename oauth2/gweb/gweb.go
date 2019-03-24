@@ -24,7 +24,8 @@ func WebApisForOAuth(temp oauthpb.OAuthServiceClient) {
 	http.HandleFunc("/", handleMain)
 	http.HandleFunc("/auth", auth)
 	http.HandleFunc("/callback", callback)
-	log.Println(http.ListenAndServe(":7007", nil))
+	http.ListenAndServe(":7007", nil)
+	log.Println("Server start with port:7007")
 }
 
 func handleMain(w http.ResponseWriter, r *http.Request) {
